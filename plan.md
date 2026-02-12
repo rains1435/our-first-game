@@ -5,7 +5,7 @@
 
 ---
 
-## Timeline
+## Plan/MVP/Timeline
 
   <h3>Basic Game Information/Overview</h3>
   <ul>
@@ -55,7 +55,7 @@
 
 
 
-#### MVP
+#### Beyond MVP
 
 - [ ] Task (deadline: X)
   - [ ] Subtask (deadline: X)
