@@ -1,22 +1,28 @@
 # Plan
 
 ## Tool: Phaser
-## Product: (An dungeon alike game)
+## Product: (An dungeon puzzle like game)
 
 ---
 
 ## Timeline
 
-  <h3>Basic Game Information/Overview</h3>
+N/A
+
+---
+<h3>Basic Game Information/Overview</h3>
+
+**FYI**: *INFORMATION PROVIDED BELOW MIGHT CHANGE OVER THE COURSE OF DEVELOPING THE GAME*
+
   <ul>
-    <li>Should also include somewhat of an color for the background; black, white, blue, etc (not determined yet)
+    <li>Should also include somewhat of an color for the background; black, white, blue, etc (not determined yet)</li>
     <li>Textures should also be included, some blocks contains textures of concrete, stone, bricks and etc</li>
     <li>Maybe also start thinking about how will the mood/the game will shift towards, like the targetted audience; if the game is light-hearted and is meant for knowledge testing + fun then maybe something bright and perhaps colorful</li>
     <li>Fire Boy and Water Girl game as reference: Instead of matching doors, we can make it fun and learnable</li>
     <li>Each level(Mininmum 3-4 levels) consists of different math pieces of general knowledge of stuff, can includes history, math, etcs</li>
     <ul>
       <li>General knowledge for math can include: Algebra related, Geometry related, and others etc (mostly for highschools 9-12)</li>
-      <li>General knowledge for history can include: about the U.S history, history about the world, famous people, and etc (ideas related to history basically)
+      <li>General knowledge for history can include: about the U.S history, history about the world, famous people, and etc (ideas related to history basically)</li>
     </ul>
     <li>Lives system can be introduced: The player is granted 4-5 lives(Not determined for the exact amount) and if they step on the trap they lose 1 live, if they lose all of their lives, then they have to retry, restarting the whole thing over again</li>
     <li>Also could include elements of traps concept and things that can trigger death for the player (ingame)
@@ -53,17 +59,48 @@
     </ul>
   </ul>
 
-
+### Roles
+*Common patterns of role control in the making of the game*
+- **Xin Yu** = The Architect and Builder; involved in some part of JS managment
+- **Rain** = The Assister and JS management; involved slighty in the Styling of the game
 
 #### MVP
+<!--REMEMBER WHEN DONE WITH A TASK, X IT OUT VIA THE BRACKET AND AT THE END OF THE TASK TEXT, ADD THE DATE YOU FINISHED IT AT-->
+- ### 1) Setting things up & The Basics (Feb 17th)
+  - [] Create the necessary folders, files, textures (**Xin Yu**)
+  - [] Set up phaser completely and a game canvas with a decided width and height; includes basic/simple CSS styling to center the canvas (**Xin Yu**)
+  - [] Preload all (if there is any) textures in the preload function (**Xin Yu**)
+  - [] Create platforms with physics, collision, and texture (**Rain**)
+  - [] Add 2 sprite characters with physics, collision, and texture (**Rain**)
+  - [] Add a collectable with physics, collision, and texture (**Rain**)
 
-- [ ] Task (deadline: X)
-  - [ ] Subtask (deadline: X)
+- ### 2) User Interactability (Mar 2nd - Mar 8th)
+BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
+  - [] Implement Arrows Key + WASD Movement controls for the sprites (**Rain**)
+  - [] Make it that sprites can collect collectables (**Xin Yu**)
+  - [] Add a concept of death of the sprites when interacting with something (i.e., traps) (**Rain**)
+    - [] Add some entity/thing that can kill the sprite + physics/collision/texture (**Xin Yu**)
+    - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
+
+- ### 3) Levels + Functionality (Mar 9th - Mar 15th)
+  - [] Create different levels (**Xin Yu**)
+  - [] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**)
+  - [] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Rain**)
+  - [] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**)
+  - [] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu**)
+
+- ### 4) Restarting + Concept of Death (Mar 16th - Mar 22nd)
+  - [] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain**)
+  - [] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain**)
+
+- ### 5) Map Development + Design (Mar 23rd - Apr 1st)
+  - [] Create obstacle courses with kill-items to make it harder; as levels progress, maps get more difficult (**Xin Yu; Rain will assist**)
+  - [] Find places on the level to put the "winning line", spawn area, key location + the riddle to solve to get to it (**Xin Yu; Rain will assist**)
 
 #### Beyond MVP
 
-- [ ] Task
-  - [ ] Subtask
+- []
+  - []
 
 
 <!-- EXAMPLE
