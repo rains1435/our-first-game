@@ -66,7 +66,7 @@ N/A
 
 #### MVP
 <!--REMEMBER WHEN DONE WITH A TASK, X IT OUT VIA THE BRACKET AND AT THE END OF THE TASK TEXT, ADD THE DATE YOU FINISHED IT AT-->
-- ### 1) Setting things up & The Basics (Feb 17th)
+- ### 1) Setting things up & The Basics
   - [] Create the necessary folders, files, textures (**Xin Yu**)
   - [] Set up phaser completely and a game canvas with a decided width and height; includes basic/simple CSS styling to center the canvas (**Xin Yu**)
   - [] Preload all (if there is any) textures in the preload function (**Xin Yu**)
@@ -74,7 +74,7 @@ N/A
   - [] Add 2 sprite characters with physics, collision, and texture (**Rain**)
   - [] Add a collectable with physics, collision, and texture (**Rain**)
 
-- ### 2) User Interactability (Mar 2nd - Mar 8th)
+- ### 2) User Interactability
 BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
   - [] Implement Arrows Key + WASD Movement controls for the sprites (**Rain**)
   - [] Make it that sprites can collect collectables (**Xin Yu**)
@@ -82,18 +82,18 @@ BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
     - [] Add some entity/thing that can kill the sprite + physics/collision/texture (**Xin Yu**)
     - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
 
-- ### 3) Levels + Functionality (Mar 9th - Mar 15th)
+- ### 3) Levels + Functionality
   - [] Create different levels (**Xin Yu**)
   - [] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**)
   - [] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Rain**)
   - [] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**)
   - [] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu**)
 
-- ### 4) Restarting + Concept of Death (Mar 16th - Mar 22nd)
+- ### 4) Restarting + Concept of Death
   - [] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain**)
   - [] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain**)
 
-- ### 5) Map Development + Design (Mar 23rd - Apr 1st)
+- ### 5) Map Development + Design
   - [] Create obstacle courses with kill-items to make it harder; as levels progress, maps get more difficult (**Xin Yu; Rain will assist**)
   - [] Find places on the level to put the "winning line", spawn area, key location + the riddle to solve to get to it (**Xin Yu; Rain will assist**)
 
