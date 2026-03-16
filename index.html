@@ -22,7 +22,7 @@
 <script>
 var config = {
     type: Phaser.AUTO,
-    width: 1200,
+    width: 1700,
     height: 750,
     physics: { //Adds physics setting
         default: 'arcade', //Sets the default physic setting to arcade
@@ -39,7 +39,8 @@ var config = {
 //preloads images beforehand
 var game = new Phaser.Game(config);
 function preload() {
-    this.load.image('bluesky', 'assets/bluesky.jpg'); //refers back to the bg of skyblue
+    // this.load.image('bluesky', 'assets/bluesky.jpg'); //refers back to the bg of skyblue
+    this.load.image('dungeon', 'assets/dungeon.jpg')
     this.load.image('concrete1', 'assets/concrete1.png'); //refers back to the texture used for platforms
     this.load.image('player1', 'assets/player1.png') //refers back to sprite texture for player 1
     this.load.image('player2', 'assets/player2.png') //refers back to sprite texture for player 2
@@ -47,8 +48,10 @@ function preload() {
 
 function create() {
     //background(placeholder for now not decided)
-    var skyBg = this.add.image(600, 375, 'bluesky') //creates the variable then add image of the sky bg then resizes it to 1200, 750 so almost entirely the whole image will show
-    skyBg.setDisplaySize(1200, 750);
+    // var skyBg = this.add.image(700, 375, 'bluesky') //creates the variable then add image of the sky bg then resizes it to 1200, 750 so almost entirely the whole image will show
+    // skyBg.setDisplaySize(1500, 750);
+    var dungeonBg = this.add.image(865,375, 'dungeon')
+    dungeonBg.setDisplaySize(1700,900)
     //platform(also undecided for now placeholder)
     var testplatform = this.physics.add.staticGroup() //staticGroup used for making the object sticking in one place so when other sprite is ontop of it, it wouldn't move
     var platform = testplatform.create(300, 500, 'concrete1')
@@ -64,14 +67,14 @@ function create() {
     player1.setBounce(0.2) //Jump value of 0.2
     player1.setCollideWorldBounds(true) //Makes it so they will stay within the boundary of the canvas
     this.physics.add.collider(player1, testplatform) //Collision between the sprite and the platforms
-    player1.displayWidth = 50;
-    player1.displayHeight = 50
+    player1.displayWidth = 70
+    player1.displayHeight = 70
     player2 = this.physics.add.sprite(500, 200, 'player2')
     player2.setBounce(0.2)
     player2.setCollideWorldBounds(true)
     this.physics.add.collider(player2, testplatform)
-    player2.displayWidth = 50;
-    player2.displayHeight = 50
+    player2.displayWidth = 70
+    player2.displayHeight = 70
 }
 
 function update() {
