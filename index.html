@@ -54,6 +54,8 @@ function create() {
     dungeonBg.setDisplaySize(1700,900)
     //platform(also undecided for now placeholder)
     var testplatform = this.physics.add.staticGroup() //staticGroup used for making the object sticking in one place so when other sprite is ontop of it, it wouldn't move
+
+
     var platform = testplatform.create(300, 500, 'concrete1')
     platform.displayWidth = 250;
     platform.displayHeight = 30;
@@ -62,11 +64,13 @@ function create() {
     platform2.displayWidth = 250;
     platform2.displayHeight = 30;
     platform.refreshBody()
+
+
     //sprite
     player1 = this.physics.add.sprite(200,300, 'player1') //adds the sprite based on the physic setting of arcade on the location of x value of 200, and y value of 300
     player1.setBounce(0.2) //Jump value of 0.2
     player1.setCollideWorldBounds(true) //Makes it so they will stay within the boundary of the canvas
-    this.physics.add.collider(player1, testplatform) //Collision between the sprite and the platforms
+    this.physics.add.collider(player1, testplatform,) //Collision between the sprite and the platforms
     player1.displayWidth = 70
     player1.displayHeight = 70
     player2 = this.physics.add.sprite(500, 200, 'player2')
@@ -75,6 +79,8 @@ function create() {
     this.physics.add.collider(player2, testplatform)
     player2.displayWidth = 70
     player2.displayHeight = 70
+
+
 }
 
 function update() {
