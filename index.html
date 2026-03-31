@@ -57,10 +57,11 @@
                 {
                     this.load.image('sky', 'assets/sky.jpg');
                     this.load.image('ground', 'assets/ground.jpg');
-                    this.load.image('frog', 'assets/frog.jpg');
+                    // this.load.image('frog', 'assets/frog.jpg');
                     this.load.image('boy', 'assets/boy.jpg');
                     this.load.image('coins', 'assets/coins.jpg');
                     this.load.image('spikes', 'assets/spikes.jpg');
+                    this.load.image('knight', 'assets/knight.png');
                 }
 
                 create ()
@@ -87,8 +88,8 @@
 
                     // character (sprite)
                     // frog (player1)
-                    player1 = this.physics.add.sprite(350, 400, 'frog');
-                    player1.setScale(0.07).setBounce(0.2).setCollideWorldBounds(true);
+                    player1 = this.physics.add.sprite(350, 400, 'knight');
+                    player1.setScale(5).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
                     // boy (player2)
