@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="style.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
         <script src="https://cdn.jsdelivr.net/npm/phaser@v3.90.0/dist/phaser.min.js"></script>
 
         <style>
@@ -47,6 +47,19 @@
             var scoreText;
             var spikes;
             var spikeCreate;
+            var portal;
+            var teleport;
+
+            // refactored spike creation machine
+            function createSpike(scene,x,y) {
+                scene.add.triangle(x,y,0,40,20,0,40,40,0xff0000);
+                var hbOne = spikes.create(x,y-15).setScale(0.2).refreshBody();
+                var hbTwo = spikes.create(x-10,y+17).setScale(0.2).refreshBody();
+                var hbThree = spikes.create(x+10,y+17).setScale(0.2).refreshBody();
+                hbOne.setVisible(false);
+                hbTwo.setVisible(false);
+                hbThree.setVisible(false);
+            }
 
             class Level1 extends Phaser.Scene {
                 constructor() {
@@ -58,38 +71,40 @@
                     this.load.image('sky', 'assets/sky.jpg');
                     this.load.image('ground', 'assets/ground.jpg');
                     // this.load.image('frog', 'assets/frog.jpg');
-                    this.load.image('boy', 'assets/boy.jpg');
+                    // this.load.image('boy', 'assets/boy.jpg');
                     this.load.image('coins', 'assets/coins.jpg');
-                    this.load.image('spikes', 'assets/spikes.jpg');
-                    this.load.image('knight', 'assets/knight.png');
+                    // this.load.image('spikes', 'assets/spikes.jpg');
+                    this.load.image('knight', 'assets/knight.jpg');
+                    this.load.image('portal', 'assets/portal.jpg')
                 }
 
                 create ()
                 {
                     // background
                     let sky = this.add.image(400, 300, 'sky');
-                    sky.setDisplaySize(800, 600);
+                    sky.setDisplaySize(1200, 600);
 
                     // platforms
                     let platforms = this.physics.add.staticGroup();
 
-                    let floor = platforms.create(400, 568, 'ground').refreshBody();
-                    floor.setDisplaySize(800, 100);
+                    let floor = platforms.create(500, 580, 'ground').refreshBody();
+                    floor.setDisplaySize(1000, 52);
+                    floor.setSize(1400, 1);
 
-                    function ground (x,y) {
+                    function ground (x,y,w,h) {
                         return platforms.create(x, y, 'ground')
-                            .setDisplaySize(300,50)
+                            .setDisplaySize(w,h)
                             .refreshBody();
                     }
 
-                    ground(650, 400);
-                    ground(150, 250);
-                    ground(700, 170);
+                    ground(650,400,300,20);
+                    ground(150,250,200,20);
+                    ground(700,170,400,20);
 
                     // character (sprite)
                     // frog (player1)
                     player1 = this.physics.add.sprite(350, 400, 'knight');
-                    player1.setScale(5).setBounce(0.2).setCollideWorldBounds(true);
+                    player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
                     // boy (player2)
@@ -107,9 +122,9 @@
                             coins.create(x + i*spacing, y, 'coins' );
                         }
                     }
-                    coinsSpawn(20, 210, 6, 50);
-                    coinsSpawn(530, 360, 6, 50);
-                    coinsSpawn(580, 130, 5, 50);
+                    // coinsSpawn(20, 210, 6, 50);
+                    // coinsSpawn(530, 360, 6, 50);
+                    // coinsSpawn(580, 130, 5, 50);
                     coins.children.iterate(function (child) {
                         child.setScale(0.1);
                     });
@@ -128,24 +143,43 @@
 
                     this.physics.add.collider(coins, platforms);
                     this.physics.add.overlap(player1, coins, collectCoin, null, this);
-                    // this.physics.add.overlap(player2, coins, collectCoin, null, this);
 
                     // death system
                     spikes = this.physics.add.staticGroup();
-                    spikeCreate = spikes.create(200, 210, 'spikes');
-                    spikeCreate.setScale(0.4).refreshBody();
+                    createSpike(this,220,205);
+                    // // learned from https://docs.phaser.io/api-documentation/class/gameobjects-triangle
+                    // spikeCreate = this.add.triangle(220,205,0,40,20,0,40,40,0xff0000);
+                    // //hitboxes need to be created
+                    // var hbOne = spikes.create(220,190).setScale(0.2).refreshBody();
+                    // var hbTwo = spikes.create(210,222).setScale(0.2).refreshBody();
+                    // var hbThree = spikes.create(230,222).setScale(0.2).refreshBody();
+                    // //makes hitboxes invisible; learned from https://docs.phaser.io/phaser/concepts/gameobjects#:~:text=Removing%20a%20game%20object%E2%80%8B,may%20move%20freely%20between%20them.
+                    // hbOne.setVisible(false);
+                    // hbTwo.setVisible(false);
+                    // hbThree.setVisible(false);
                     this.physics.add.overlap(player1, spikes, function() {
                         player1.setPosition(350, 400);
                         score = 0;
                         scoreText.setText('Score: 0');
                     }, null, this);
+
+                    // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
+                     teleport = this.physics.add.staticGroup();
+                     portal = teleport.create(900,500,'portal');
+                     portal.setSize(50,50);
+                     portal.setScale(0.15);
+                     portal.refreshBody;
+
+                     this.physics.add.overlap(player1, portal, function(){
+                        alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                        this.scene.start('Level2');
+                     }, null, this);
                 }
 
 
 
                 update ()
                 {
-                    // arrow keys movement (frog,player1)
                     cursors = this.input.keyboard.createCursorKeys();
                     if (cursors.left.isDown)
                     {
@@ -164,32 +198,6 @@
                     {
                         player1.setVelocityY(-330);
                     }
-                    // WASD keys movement (boy,player2)
-                    /*
-                    wasdKey = this.input.keyboard.addKeys({
-                        up: 'W',
-                        down: 'S',
-                        right: 'D',
-                        left: 'A'
-                    });
-                    if (wasdKey.left.isDown)
-                    {
-                        player2.setVelocityX(-160);
-                    }
-                    else if (wasdKey.right.isDown)
-                    {
-                        player2.setVelocityX(160);
-                    }
-                    else
-                    {
-                        player2.setVelocityX(0);
-                    }
-
-                    if (wasdKey.up.isDown && player2.body.touching.down)
-                    {
-                        player2.setVelocityY(-330);
-                    }
-                    */
                 }
             }
 
@@ -199,15 +207,51 @@
                 }
 
                 preload() {
-
+                    this.load.image('sky', 'assets/sky.jpg');
+                    this.load.image('ground', 'assets/ground.jpg');
+                    // this.load.image('frog', 'assets/frog.jpg');
+                    // this.load.image('boy', 'assets/boy.jpg');
+                    this.load.image('coins', 'assets/coins.jpg');
+                    // this.load.image('spikes', 'assets/spikes.jpg');
+                    this.load.image('knight', 'assets/knight.jpg');
                 }
 
                 create() {
+                    let sky = this.add.image(400, 300, 'sky');
+                    sky.setDisplaySize(1200, 600);
+
+                    // platforms
+                    let platforms = this.physics.add.staticGroup();
+
+                    let floor = platforms.create(500, 580, 'ground').refreshBody();
+                    floor.setDisplaySize(1000, 52);
+                    floor.setSize(1400, 1);
+
+                    player1 = this.physics.add.sprite(350, 400, 'knight');
+                    player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
+                    this.physics.add.collider(player1, platforms);
 
                 }
 
                 update() {
+                    cursors = this.input.keyboard.createCursorKeys();
+                    if (cursors.left.isDown)
+                    {
+                        player1.setVelocityX(-160);
+                    }
+                    else if (cursors.right.isDown)
+                    {
+                        player1.setVelocityX(160);
+                    }
+                    else
+                    {
+                        player1.setVelocityX(0);
+                    }
 
+                    if (cursors.up.isDown && player1.body.touching.down)
+                    {
+                        player1.setVelocityY(-330);
+                    }
                 }
             }
 
@@ -216,14 +260,14 @@
                 scale: {
                     mode: Phaser.Scale.FIT,
                     parent: 'game-container',
-                    width: 800,
+                    width: 1000,
                     height: 600,
                 },
                 physics: {
                     default: 'arcade',
                     arcade: {
                         gravity: { y: 300 },
-                        debug: false
+                        debug: true
                     }
                 },
                 scene: [Level1, Level2]
