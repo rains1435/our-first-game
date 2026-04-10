@@ -67,21 +67,21 @@ N/A
 #### MVP
 <!--REMEMBER WHEN DONE WITH A TASK, X IT OUT VIA THE BRACKET AND AT THE END OF THE TASK TEXT, ADD THE DATE YOU FINISHED IT AT-->
 - ### 1) Setting things up
-  - [] Create the necessary folders, files, textures (**Xin Yu**)
+  - [X] Create the necessary folders, files, textures (**Xin Yu**->3/2/26)
   - [] Set up phaser completely and a game canvas with a decided width and height; includes basic/simple CSS styling to center the canvas (**Xin Yu**)
-  - [] Preload all (if there is any) textures in the preload function (**Xin Yu**)
+  - [X] Preload all (if there is any) textures in the preload function (**Xin Yu/Rain**)
 
 - ### 2) User Interactability
 BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
-  - [] Implement Arrows Key for the sprite (**Rain**)
-  - [] Make it that sprites can collect collectables (**Xin Yu**)
+  - [X] Implement Arrows Key for the sprite/Both the arrow and the WAD (not including S (**Xin Yu/Rain**->4/10/26)
+  - [] Make it that sprites can collect collectables (**Xin Yu/Rain**)
   - [] Add a concept of death of the sprites when interacting with something (i.e., traps) (**Rain**)
     - [] Add some entity/thing that can kill the sprite + physics/collision/texture (**Xin Yu**)
     - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
 
 - ### 3) Levels + Functionality
   - [x] Create different levels (**Rain**->4/1/26)
-  - [] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**)
+  - [X] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**)
   - [] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Xin Yu**)
   - [x] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**-> 4/3/26)
   - [] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu**)
