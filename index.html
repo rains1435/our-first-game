@@ -187,8 +187,8 @@
 
                    this.physics.add.overlap(player1, barrier, function()){
                     if (keyOn){
-                        door.destroy()
-                        keyOn=false;
+                        barrier.setTexture('doorOpen');
+                        
                     }
                    }, null, this);
 
