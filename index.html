@@ -52,6 +52,7 @@
             var key;
             var door;
             var keyOn=false;
+            var barrier;
 
             // refactored spike creation machine
             function createSpike(scene,x,y) {
@@ -174,9 +175,11 @@
                     // key system
                     key = this.physics.add.staticImage(200,300,'key');
                     key.setScale(0.1);
-                    door = this.physics.add.staticImage(400,200,'doorClosed')
+
+                    door = this.physics.add.staticImage(400,200,'doorClosed');
                     door.setScale(0.3);
-                    this.physics.add.collider(player1,door)
+                    barrier = this.physics.add.collider(player1,door);
+                    
                     this.physics.add.overlap(player1,key, function()) {
                         key.destroy()
                         keyon=true;
