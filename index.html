@@ -179,18 +179,10 @@
                     door = this.physics.add.staticImage(400,200,'doorClosed');
                     door.setScale(0.3);
                     barrier = this.physics.add.collider(player1,door);
-                    
-                    this.physics.add.overlap(player1,key, function()) {
-                        key.destroy()
-                        keyon=true;
-                    }, null, this);
 
-                   door = this.physics.add.overlap(player1, door,function()){
-                    if (keyOn){
-                        door.destroy()
-                        keyOn=false;
-                    }
-                   }, null, this);
+                    this.physics.add.overlap(player1,key, function()) {
+                        
+                    }, null, this);
 
                     // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
                      teleport = this.physics.add.staticGroup();
