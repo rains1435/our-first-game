@@ -49,6 +49,9 @@
             var spikeCreate;
             var portal;
             var teleport;
+            var key;
+            var door;
+            var keyOn=false;
 
             // refactored spike creation machine
             function createSpike(scene,x,y) {
@@ -68,14 +71,16 @@
 
                 preload ()
                 {
-                    this.load.image('sky', 'assets/sky.jpg');
-                    this.load.image('ground', 'assets/ground.jpg');
+                    this.load.image('sky', 'assets/sky.jpg'); //for sky
+                    this.load.image('ground', 'assets/ground.jpg'); //for ground
                     // this.load.image('frog', 'assets/frog.jpg');
                     // this.load.image('boy', 'assets/boy.jpg');
-                    this.load.image('coins', 'assets/coins.jpg');
+                    this.load.image('coins', 'assets/coins.jpg'); //for coins
                     // this.load.image('spikes', 'assets/spikes.jpg');
-                    this.load.image('knight', 'assets/knight.jpg');
-                    this.load.image('portal', 'assets/portal.jpg')
+                    this.load.image('knight', 'assets/knight.jpg'); //for sprite1
+                    this.load.image('portal', 'assets/portal.jpg'); //for portal that will teleport/transport the player into the next layer
+                    this.load.image('key', 'assets/keyone.png'); //for key that will enable access and have to answer question
+                    // this.load.image('door, 'assets/doorc.png') //for door that will prevent the player from leaving unless have the right requirement
                 }
 
                 create ()
@@ -100,6 +105,23 @@
                     ground(650,400,300,20);
                     ground(150,250,200,20);
                     ground(700,170,400,20);
+
+                    key = this.physics.add.staticImage(200,300,"key")
+                    key.setScale(0.3)
+                    // door = this.physics.add.staticImage(400,200,"door")
+                    // door.setScale(0.5)
+                    // this.physics.add.collider(player1,door)
+                    this.physics.add.overlap(player1,key, function()) {
+                        key.destroy()
+                        keyon=true;
+                    }, null, this);
+
+                //    door = this.physics.add.overlap(player1, door,function()){
+                //     if (keyOn){
+                //         door.destroy()
+                //         keyOn=false;
+                //     }
+                //    }, null, this);
 
                     // character (sprite)
                     // frog (player1)
