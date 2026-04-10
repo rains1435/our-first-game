@@ -185,12 +185,13 @@
                         keyOn=true;
                     }, null, this);
 
-                   this.physics.add.overlap(player1, barrier, function()){
-                    if (keyOn){
-                        barrier.setTexture('doorOpen');
-                        
-                    }
-                   }, null, this);
+                    this.physics.add.overlap(player1, barrier, function()){
+                        if (keyOn){
+                            barrier.setTexture('doorOpen');
+                            this.physics.remove.collider(barrier);
+                            keyOn = false;
+                        }
+                    }, null, this);
 
                     // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
                      teleport = this.physics.add.staticGroup();
