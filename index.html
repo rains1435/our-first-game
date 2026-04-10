@@ -174,15 +174,18 @@
 
                     // key system
                     key = this.physics.add.staticImage(200,300,'key');
+                    key.setSize(14,23);
                     key.setScale(0.1);
 
                     door = this.physics.add.staticImage(400,200,'doorClosed');
+                    door.setSize(24,28);
                     door.setScale(0.3);
                     barrier = this.physics.add.collider(player1, door);
 
                     this.physics.add.overlap(player1, key, function() {
                         key.destroy()
                         keyOn = true;
+                        // NECESSARY CHANGE B/C THE COLLIDER HAS TO BE REMOVED FIRST THEN THE OVERLAP BETWEEN THE PLAYER AND THE DOOR WOULD WORK
                         this.physics.world.removeCollider(barrier);
                     }, null, this);
 
@@ -190,6 +193,7 @@
                         if (keyOn){
                             door.setTexture('doorOpen');
                             keyOn = false;
+                            // this.physics.world.removeCollider(barrier); -> MOVED UP; EXPLANATION UP THERE
                         }
                     }, null, this);
 
