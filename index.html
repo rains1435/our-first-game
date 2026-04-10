@@ -185,7 +185,7 @@
                         keyOn = true;
                     }, null, this);
 
-                    this.physics.add.overlap(player1, barrier, function(){
+                    this.physics.add.overlap(player1, door, function(){
                         if (keyOn){
                             barrier.setTexture('doorOpen');
                             this.physics.world.removeCollider(barrier);
