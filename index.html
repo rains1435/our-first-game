@@ -183,12 +183,12 @@
                     this.physics.add.overlap(player1, key, function() {
                         key.destroy()
                         keyOn = true;
+                        this.physics.world.removeCollider(barrier);
                     }, null, this);
 
                     this.physics.add.overlap(player1, door, function(){
                         if (keyOn){
                             door.setTexture('doorOpen');
-                            this.physics.world.removeCollider(barrier);
                             keyOn = false;
                         }
                     }, null, this);
