@@ -198,7 +198,21 @@
                     door.setScale(0.3);
                     barrier = this.physics.add.collider(player1,door);
 
+
                     this.physics.add.overlap(player1,key, function()) {
+
+
+                    this.physics.add.overlap(player1, key, function()) {
+                        key.destroy()
+                        keyOn=true;
+                    }, null, this);
+
+                    this.physics.add.overlap(player1, barrier, function()){
+                        if (keyOn){
+                            barrier.setTexture('doorOpen');
+                            this.physics.remove.collider(barrier);
+                            keyOn = false;
+                        }
 
                     }, null, this);
 
