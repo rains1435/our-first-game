@@ -53,6 +53,7 @@
             var door;
             var keyOn=false;
 
+
             // refactored spike creation machine
             function createSpike(scene,x,y) {
                 scene.add.triangle(x,y,0,40,20,0,40,40,0xff0000);
@@ -80,7 +81,9 @@
                     this.load.image('knight', 'assets/knight.jpg'); //for sprite1
                     this.load.image('portal', 'assets/portal.jpg'); //for portal that will teleport/transport the player into the next layer
                     this.load.image('key', 'assets/keyone.png'); //for key that will enable access and have to answer question
-                    // this.load.image('door, 'assets/doorc.png') //for door that will prevent the player from leaving unless have the right requirement
+                    this.load.image('doorClosed', 'assets/doorC.png'); //door locked
+                    this.load.image('doorOpen', 'assets/doorO.png'); //door opened
+
                 }
 
                 create ()
@@ -106,6 +109,7 @@
                     ground(150,250,200,20);
                     ground(700,170,400,20);
 
+
                     key = this.physics.add.staticImage(200,300,"key")
                     key.setScale(0.3)
                     // door = this.physics.add.staticImage(400,200,"door")
@@ -114,7 +118,7 @@
                     this.physics.add.overlap(player1,key, function()) {
                         key.destroy()
                         keyOn=true;
-                    }, null, this); 
+                    }, null, this);
 
                 //    door = this.physics.add.overlap(player1, door,function()){
                 //     if (keyOn){
@@ -122,6 +126,7 @@
                 //         keyOn=false;
                 //     }
                 //    }, null, this);
+
 
                     // character (sprite)
                     // frog (player1)
@@ -183,6 +188,18 @@
                         player1.setPosition(350, 400);
                         score = 0;
                         scoreText.setText('Score: 0');
+                    }, null, this);
+
+                    // key system
+                    key = this.physics.add.staticImage(200,300,'key');
+                    key.setScale(0.1);
+
+                    door = this.physics.add.staticImage(400,200,'doorClosed');
+                    door.setScale(0.3);
+                    barrier = this.physics.add.collider(player1,door);
+
+                    this.physics.add.overlap(player1,key, function()) {
+
                     }, null, this);
 
                     // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
