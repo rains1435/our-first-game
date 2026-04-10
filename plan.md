@@ -66,32 +66,29 @@ N/A
 
 #### MVP
 <!--REMEMBER WHEN DONE WITH A TASK, X IT OUT VIA THE BRACKET AND AT THE END OF THE TASK TEXT, ADD THE DATE YOU FINISHED IT AT-->
-- ### 1) Setting things up & The Basics
+- ### 1) Setting things up
   - [] Create the necessary folders, files, textures (**Xin Yu**)
   - [] Set up phaser completely and a game canvas with a decided width and height; includes basic/simple CSS styling to center the canvas (**Xin Yu**)
   - [] Preload all (if there is any) textures in the preload function (**Xin Yu**)
-  - [] Create platforms with physics, collision, and texture (**Rain**)
-  - [] Add 2 sprite characters with physics, collision, and texture (**Rain**)
-  - [] Add a collectable with physics, collision, and texture (**Rain**)
 
 - ### 2) User Interactability
 BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
-  - [] Implement Arrows Key + WASD Movement controls for the sprites (**Rain**)
+  - [] Implement Arrows Key for the sprite (**Rain**)
   - [] Make it that sprites can collect collectables (**Xin Yu**)
   - [] Add a concept of death of the sprites when interacting with something (i.e., traps) (**Rain**)
     - [] Add some entity/thing that can kill the sprite + physics/collision/texture (**Xin Yu**)
     - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
 
 - ### 3) Levels + Functionality
-  - [] Create different levels (**Xin Yu**)
+  - [x] Create different levels (**Rain**->4/1/26)
   - [] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**)
-  - [] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Rain**)
-  - [] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**)
+  - [] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Xin Yu**)
+  - [x] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**-> 4/3/26)
   - [] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu**)
 
 - ### 4) Restarting + Concept of Death
-  - [] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain**)
-  - [] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain**)
+  - [x] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain**-> 4/3/26)
+  - [x] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain**-> 4/3/26)
 
 - ### 5) Map Development + Design
   - [] Create obstacle courses with kill-items to make it harder; as levels progress, maps get more difficult (**Xin Yu; Rain will assist**)
