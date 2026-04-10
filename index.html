@@ -176,10 +176,10 @@
                     key = this.physics.add.staticImage(200,300,'key');
                     key.setSize(16,36);
                     key.setScale(0.15);
-
                     door = this.physics.add.staticImage(400,200,'doorClosed');
                     door.setSize(45,54);
                     door.setScale(0.6);
+
                     barrier = this.physics.add.collider(player1, door);
 
                     this.physics.add.overlap(player1, key, function() {
