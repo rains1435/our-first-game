@@ -108,22 +108,6 @@
                     ground(150,250,200,20);
                     ground(700,170,400,20);
 
-                    key = this.physics.add.staticImage(200,300,"key")
-                    key.setScale(0.3)
-                    // door = this.physics.add.staticImage(400,200,"door")
-                    // door.setScale(0.5)
-                    // this.physics.add.collider(player1,door)
-                    this.physics.add.overlap(player1,key, function()) {
-                        key.destroy()
-                        keyon=true;
-                    }, null, this);
-
-                //    door = this.physics.add.overlap(player1, door,function()){
-                //     if (keyOn){
-                //         door.destroy()
-                //         keyOn=false;
-                //     }
-                //    }, null, this);
 
                     // character (sprite)
                     // frog (player1)
@@ -186,6 +170,24 @@
                         score = 0;
                         scoreText.setText('Score: 0');
                     }, null, this);
+
+                    // key system
+                    key = this.physics.add.staticImage(200,300,'key');
+                    key.setScale(0.1);
+                    door = this.physics.add.staticImage(400,200,"door")
+                    door.setScale(0.5);
+                    this.physics.add.collider(player1,door)
+                    this.physics.add.overlap(player1,key, function()) {
+                        key.destroy()
+                        keyon=true;
+                    }, null, this);
+
+                   door = this.physics.add.overlap(player1, door,function()){
+                    if (keyOn){
+                        door.destroy()
+                        keyOn=false;
+                    }
+                   }, null, this);
 
                     // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
                      teleport = this.physics.add.staticGroup();
