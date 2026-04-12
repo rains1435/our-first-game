@@ -162,19 +162,21 @@
                     // hbTwo.setVisible(false);
                     // hbThree.setVisible(false);
                     this.physics.add.overlap(player1, spikes, function() {
-                        lives--;
-                        console.log('lives left: ' + lives);
-                        livesText.setText('Lives: ' + lives);
+                        if (isDying === false) {
+                            isDying = true;
+                            lives--;
+                            livesText.setText('Lives: ' + lives);
 
-                        if (lives <= 0) {
-                            // no lives left, restart whole game from Level1
-                            lives = 3;
-                            score = 0;
-                            this.scene.start('Level1');
-                        } else {
-                            // still have lives, restart current level
-                            score = 0;
-                            this.scene.restart();
+                            if (lives <= 0) {
+                                lives = 3;
+                                score = 0;
+                                isDying = false;
+                                this.scene.start('Level1');
+                            } else {
+                                score = 0;
+                                isDying = false;
+                                this.scene.restart();
+                            }
                         }
                     }, null, this);
 
