@@ -196,11 +196,24 @@
                      portal.setSize(50,50);
                      portal.setScale(0.15);
                      portal.refreshBody;
-
                      this.physics.add.overlap(player1, portal, function(){
                         alert("You've beat the first level! Click 'Ok' to move on to the second level");
                         this.scene.start('Level2');
                      }, null, this);
+                     brick = this.physics.add.staticImage(200, 200, 'brickWall');
+                        brick.setScale(0.4);
+                        this.physics.add.overlap(player1, brick, function() {
+                         if (userAnswered === false) {
+                            userAnswered = true;
+                        var answer = prompt("What is the smallest populated country in the world?");
+                        if (answer === "Vatican City" || "vatican city") {
+                        brick.destroy();
+                        } else {
+                        alert("Not correct! Try again!");
+                        userAnswered = false;
+                        }
+                    }
+                }, null, this);
                 }
 
                 update ()
@@ -344,6 +357,8 @@
                         alert("You've beat the first level! Click 'Ok' to move on to the second level");
                         this.scene.start('Level2');
                      }, null, this);
+
+
                 }
 
                 update() {
