@@ -161,9 +161,19 @@
                     // hbTwo.setVisible(false);
                     // hbThree.setVisible(false);
                     this.physics.add.overlap(player1, spikes, function() {
-                        player1.setPosition(350, 400);
-                        score = 0;
-                        scoreText.setText('Score: 0');
+                        lives--;
+                        livesText.setText('Lives: ' + lives);
+
+                        if (lives <= 0) {
+                            // no lives left, restart whole game from Level1
+                            lives = 3;
+                            score = 0;
+                            this.scene.start('Level1');
+                        } else {
+                            // still have lives, restart current level
+                            score = 0;
+                            this.scene.restart();
+                        }
                     }, null, this);
 
                     // lives system
