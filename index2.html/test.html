@@ -187,7 +187,8 @@
                             keyOn = false;
                             // this.physics.world.removeCollider(barrier); -> MOVED UP; EXPLANATION UP THERE
                         }
-                    }, null, this)
+                    }, null, this);
+
                     // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
                      teleport = this.physics.add.staticGroup();
                      portal = teleport.create(900,500,'portal');
