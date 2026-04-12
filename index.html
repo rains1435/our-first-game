@@ -162,9 +162,10 @@
                     // hbThree.setVisible(false);
                     this.physics.add.overlap(player1, spikes, function() {
                         lives--;
+                        console.log('lives left: ' + lives);
                         livesText.setText('Lives: ' + lives);
 
-                        if (lives < 1) {
+                        if (lives <= 0) {
                             // no lives left, restart whole game from Level1
                             lives = 3;
                             score = 0;
