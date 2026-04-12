@@ -88,14 +88,6 @@
 
                 create ()
                 {
-                //     cursors = this.input.keyboard.createCursorKeys();
-                //      movementKey = this.input.keyboard.addKeys({
-                //     up: "W",
-                //     right: "D",
-                //     left: "A",
-                //     down: "S",
-                // });
-
                     // background
                     let sky = this.add.image(400, 300, 'sky');
                     sky.setDisplaySize(1200, 600);
@@ -119,17 +111,9 @@
 
 
                     // character (sprite)
-                    // frog (player1)
                     player1 = this.physics.add.sprite(350, 400, 'knight');
                     player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
-
-                    // boy (player2)
-                    /*
-                    player2 = this.physics.add.sprite(250, 400, 'boy');
-                    player2.setScale(0.2).setBounce(0.2).setCollideWorldBounds(true);
-                    this.physics.add.collider(player2, platforms);
-                    */
 
                     // coins (collectable) / score system
                     coins = this.physics.add.group({
