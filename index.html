@@ -209,12 +209,11 @@
                         left: 'a',
                         right: 'd'
                     });
-                    cursors = this.input.keyboard.createCursorKeys();
-                    if (cursors.left.isDown || movementKey.left.isDown)
+                    if (wasdKey.left.isDown)
                     {
                         player1.setVelocityX(-160);
                     }
-                    else if (cursors.right.isDown || movementKey.right.isDown)
+                    else if (wasdKey.right.isDown)
                     {
                         player1.setVelocityX(160);
                     }
@@ -223,7 +222,7 @@
                         player1.setVelocityX(0);
                     }
 
-                    if ((cursors.up.isDown || movementKey.up.isDown) && player1.body.touching.down)
+                    if (wasdKey.up.isDown && player2.body.touching.down)
                     {
                         player1.setVelocityY(-330);
                     }
@@ -260,12 +259,16 @@
                 }
 
                 update() {
-                    cursors = this.input.keyboard.createCursorKeys();
-                    if (cursors.left.isDown)
+                    wasdKey = this.input.keyboard.addKeys({
+                        up: 'w',
+                        left: 'a',
+                        right: 'd'
+                    });
+                    if (wasdKey.left.isDown)
                     {
                         player1.setVelocityX(-160);
                     }
-                    else if (cursors.right.isDown)
+                    else if (wasdKey.right.isDown)
                     {
                         player1.setVelocityX(160);
                     }
@@ -274,7 +277,7 @@
                         player1.setVelocityX(0);
                     }
 
-                    if (cursors.up.isDown && player1.body.touching.down)
+                    if (wasdKey.up.isDown && player2.body.touching.down)
                     {
                         player1.setVelocityY(-330);
                     }
