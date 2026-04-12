@@ -216,17 +216,15 @@
                         alert("You've beat the first level! Click 'Ok' to move on to the second level");
                         this.scene.start('Level2');
                      }, null, this);
-                    //  cursors = this.input.keyboard.createCursorKeys();
-                  movementKey = this.input.keyboard.addKeys({
-                    up: 'w',
-                    left: 'a',
-                    right: 'd'
-                    });
                 }
 
                 update ()
                 {
-
+                    movementKey = this.input.keyboard.addKeys({
+                        up: 'w',
+                        left: 'a',
+                        right: 'd'
+                    });
                     cursors = this.input.keyboard.createCursorKeys();
                     if (cursors.left.isDown || movementKey.left.isDown)
                     {
