@@ -53,7 +53,7 @@
             var door;
             var keyOn = false;
             var barrier;
-            var movementKey;
+            var wasdKey;
             // refactored spike creation machine
             function createSpike(scene,x,y) {
                 scene.add.triangle(x,y,0,40,20,0,40,40,0xff0000);
@@ -220,7 +220,7 @@
 
                 update ()
                 {
-                    movementKey = this.input.keyboard.addKeys({
+                    wasdKey = this.input.keyboard.addKeys({
                         up: 'w',
                         left: 'a',
                         right: 'd'
@@ -254,10 +254,7 @@
                 preload() {
                     this.load.image('sky', 'assets/sky.jpg');
                     this.load.image('ground', 'assets/ground.jpg');
-                    // this.load.image('frog', 'assets/frog.jpg');
-                    // this.load.image('boy', 'assets/boy.jpg');
                     this.load.image('coins', 'assets/coins.jpg');
-                    // this.load.image('spikes', 'assets/spikes.jpg');
                     this.load.image('knight', 'assets/knight.jpg');
                 }
 
