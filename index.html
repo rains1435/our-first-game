@@ -164,7 +164,7 @@
                         lives--;
                         livesText.setText('Lives: ' + lives);
 
-                        if (lives <= 0) {
+                        if (lives < 1) {
                             // no lives left, restart whole game from Level1
                             lives = 3;
                             score = 0;
