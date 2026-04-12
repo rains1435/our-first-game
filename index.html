@@ -149,7 +149,7 @@
 
                     // death system
                     spikes = this.physics.add.staticGroup();
-                    createSpike(this,220,205);
+                    createSpike(this,200,450);
                     // // learned from https://docs.phaser.io/api-documentation/class/gameobjects-triangle
                     // spikeCreate = this.add.triangle(220,205,0,40,20,0,40,40,0xff0000);
                     // //hitboxes need to be created
@@ -161,10 +161,24 @@
                     // hbTwo.setVisible(false);
                     // hbThree.setVisible(false);
                     this.physics.add.overlap(player1, spikes, function() {
-                        player1.setPosition(350, 400);
-                        score = 0;
-                        scoreText.setText('Score: 0');
+                        lives--;
+                        console.log('lives left: ' + lives);
+                        livesText.setText('Lives: ' + lives);
+
+                        if (lives <= 0) {
+                            // no lives left, restart whole game from Level1
+                            lives = 3;
+                            score = 0;
+                            this.scene.start('Level1');
+                        } else {
+                            // still have lives, restart current level
+                            score = 0;
+                            this.scene.restart();
+                        }
                     }, null, this);
+
+                    // lives system
+                    livesText = this.add.text(16, 50, 'lives: ' + lives, { fontSize: '32px', fill: '#000' });
 
                     // key system
                     key = this.physics.add.staticImage(200,350,'key');
