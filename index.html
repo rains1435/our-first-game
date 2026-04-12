@@ -205,9 +205,10 @@
                 update ()
                 {
                     wasdKey = this.input.keyboard.addKeys({
-                        up: 'w',
-                        left: 'a',
-                        right: 'd'
+                        up: 'W',
+                        down: 'S',
+                        left: 'A',
+                        right: 'D'
                     });
                     if (wasdKey.left.isDown)
                     {
@@ -222,7 +223,7 @@
                         player1.setVelocityX(0);
                     }
 
-                    if (wasdKey.up.isDown && player2.body.touching.down)
+                    if (wasdKey.up.isDown && player1.body.touching.down)
                     {
                         player1.setVelocityY(-330);
                     }
@@ -260,9 +261,10 @@
 
                 update() {
                     wasdKey = this.input.keyboard.addKeys({
-                        up: 'w',
-                        left: 'a',
-                        right: 'd'
+                        up: 'W',
+                        down: 'S',
+                        left: 'A',
+                        right: 'D'
                     });
                     if (wasdKey.left.isDown)
                     {
