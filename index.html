@@ -170,12 +170,17 @@
                             if (lives <= 0) {
                                 lives = 3;
                                 score = 0;
-                                dying = false;
-                                this.scene.start('Level1');
+                                this.time.delayedCall(100, function(){
+                                    dying = false;
+                                    this.scene.start('Level1');
+                                });
+
                             } else {
                                 score = 0;
-                                dying = false;
-                                this.scene.restart();
+                                this.time.delayedCall(100, function(){
+                                    dying = false;
+                                    this.scene.restart();
+                                });
                             }
                         }
                     }, null, this);
