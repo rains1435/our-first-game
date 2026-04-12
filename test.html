@@ -202,7 +202,10 @@
                         this.scene.start('Level2');
                      }, null, this);
                         brick = this.physics.add.staticImage(150, 300, 'brickWall');
-                        brick.setScale(0.3);
+                        brick.setSize(30,80);
+                        brick.setScale(0.15);
+
+
                         this.physics.add.overlap(player1, brick, function() {
                          if (userAnswered === false) {
                             userAnswered = true;
