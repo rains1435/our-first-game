@@ -201,22 +201,24 @@
                         alert("You've beat the first level! Click 'Ok' to move on to the second level");
                         this.scene.start('Level2');
                      }, null, this);
-                        brick = this.physics.add.staticImage(150, 300, 'brickWall');
-                        brick.setSize(30,80);
-                        brick.setScale(0.15);
 
 
-                        this.physics.add.overlap(player1, brick, function() {
-                         if (userAnswered === false) {
+                    brick = this.physics.add.staticImage(150, 300, 'brickWall');
+                    brick.setSize(30,80);
+                    brick.setScale(0.15);
+
+                    this.physics.add.overlap(player1, brick, function() {
+                        if (userAnswered === false) {
                             userAnswered = true;
-                        var answer = prompt("Answer correctly to pass! What is 2 + 2?");
-                        if (answer === "4") {
-                        brick.destroy();
-                        } else {
-                        alert("Wrong! Try again.");
-                        userAnswered = false;
-                        }
-                    }
+                            var answer = prompt("Answer correctly to pass! What is 2 + 2?");
+                            if (answer === "4") {
+                                brick.destroy();
+                            } else {
+                                alert("Wrong! Try again.");
+                                userAnswered = false;
+                            }
+                        
+                    }, null, this);
                 }
 
                 update ()
