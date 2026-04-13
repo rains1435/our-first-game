@@ -146,6 +146,7 @@
                                 dying = false;
                                 userAnswered = false;
                                 keyOn = false;
+                                portalUsed = false
                                 this.scene.start('Level1');
                             } else {
                                 this.time.addEvent({
@@ -154,6 +155,7 @@
                                         dying = false;
                                         userAnswered = false;
                                         keyOn = false;
+                                        portalUsed = false
                                         this.scene.restart();
                                     },
                                     callbackScope: this
