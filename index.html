@@ -114,7 +114,7 @@
 
                     // platforms
                     ground(180, 480, 150, 20);
-                    ground(400, 400, 200, 20);
+                    ground(370, 400, 100, 20);
                     ground(600, 290, 150, 20);
                     ground(800, 370, 150, 20);
 
@@ -131,7 +131,7 @@
                             coins.create(x + i*spacing, y, 'coins' );
                         }
                     }
-                    coinsSpawn(125, 460, 3, 50);
+                    coinsSpawn(120, 460, 4, 40);
                     // coinsSpawn(530, 360, 6, 50);
                     // coinsSpawn(580, 130, 5, 50);
                     coins.children.iterate(function (child) {
@@ -191,7 +191,7 @@
                     }, null, this);
 
                     // brick wall
-                    brick = this.physics.add.staticImage(485, 350, 'brickWall');
+                    brick = this.physics.add.staticImage(370, 350, 'brickWall');
                     brick.setSize(30, 80);
                     brick.setScale(0.15);
 
