@@ -475,11 +475,11 @@
 
                     this.physics.add.overlap(player1, portal, function() {
                         if (score >= coinValue * 10) {
-                            alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                            alert("YOU BEAT THE FINAL LEVEL!!!");
                             userAnswered = false;
                             keyOn = false;
                             score = 0;
-                            this.scene.start('Level2');
+                            this.scene.start('Ending');
                         }
                     }, null, this);
                 }
@@ -507,7 +507,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-250);
+                        player1.setVelocityY(-230);
                     }
                 }
             }
