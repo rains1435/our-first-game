@@ -166,6 +166,7 @@
                         if (dying === false) {
                             dying = true;
                             player1.disableBody(true, false);
+
                             lives--;
                             livesText.setText('Lives: ' + lives);
                             score = 0;
@@ -179,8 +180,8 @@
                                 this.time.addEvent({
                                     delay: 500,
                                     callback: function() {
-                                        player1.enableBody(true, 350, 400, true, true);
                                         dying = false;
+                                        this.scene.restart();
                                     },
                                     callbackScope: this
                                 });
