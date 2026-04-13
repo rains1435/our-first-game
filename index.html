@@ -165,8 +165,7 @@
                     this.physics.add.overlap(player1, spikes, function() {
                         if (dying === false) {
                             dying = true;
-                            player1.disableBody(true, false); // disable player physics temporarily
-
+                            player1.disableBody(true, false);
                             lives--;
                             livesText.setText('Lives: ' + lives);
                             score = 0;
@@ -177,7 +176,6 @@
                                 dying = false;
                                 this.scene.start('Level1');
                             } else {
-                                // re-enable player after short delay
                                 this.time.addEvent({
                                     delay: 500,
                                     callback: function() {
