@@ -162,29 +162,32 @@
                     // hbTwo.setVisible(false);
                     // hbThree.setVisible(false);
 
-                    // this.physics.add.overlap(player1, spikes, function() {
-                    //     if (dying === false) {
-                    //         dying = true;
-                    //         lives--;
-                    //         livesText.setText('Lives: ' + lives);
-                    //         score = 0;
-                    //         scoreText.setText('Score: 0');
-
-                    //         if (lives <= 0) {
-                    //             lives = 3;
-                    //             dying = false;
-                    //             this.scene.start('Level1');
-                    //         } else {
-                    //             // just move player back to start, no restart
-                    //             player1.setPosition(350, 400);
-                    //             player1.setVelocity(0, 0);
-                    //             dying = false;
-                    //         }
-                    //     }
-                    // }, null, this);
-
                     this.physics.add.overlap(player1, spikes, function() {
-                        console.log('hit! dying = ' + dying + ' lives = ' + lives);
+                        if (dying === false) {
+                            dying = true;
+                            player1.disableBody(true, false); // disable player physics temporarily
+
+                            lives--;
+                            livesText.setText('Lives: ' + lives);
+                            score = 0;
+                            scoreText.setText('Score: 0');
+
+                            if (lives <= 0) {
+                                lives = 3;
+                                dying = false;
+                                this.scene.start('Level1');
+                            } else {
+                                // re-enable player after short delay
+                                this.time.addEvent({
+                                    delay: 500,
+                                    callback: function() {
+                                        player1.enableBody(true, 350, 400, true, true);
+                                        dying = false;
+                                    },
+                                    callbackScope: this
+                                });
+                            }
+                        }
                     }, null, this);
 
                     // lives system
