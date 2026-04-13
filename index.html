@@ -43,12 +43,14 @@
             var cursors;
             var wasdKey;
             var coins;
+            var coinValue = 10;
             var score = 0;
             var scoreText;
             var spikes;
             var dying = false;
             var spikeCreate;
             var portal;
+            var portalTouched = false;
             var teleport;
             var key;
             var door;
@@ -59,7 +61,7 @@
             var livesText;
             var brick;
             var userAnswered = false;
-            var coinValue = 10;
+
             // refactored spike creation machine
             function createSpike(scene,x,y) {
                 scene.add.triangle(x,y,0,40,20,0,40,40,0xff0000);
@@ -212,11 +214,14 @@
                     portal.refreshBody();
 
                     this.physics.add.overlap(player1, portal, function() {
-                        if (score >= coinValue * 10) {
-                            alert("You've beat the first level! Click 'Ok' to move on to the second level");
-                            this.scene.start('Level2');
-                        } else {
-                            alert("YOU NEED ALL THE COINS COLLECTED!!!");
+                        if (portalTouched === false) {
+                            portalTouched = true;
+                            if (score >= coinValue * 10) {
+                                alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                                this.scene.start('Level2');
+                            } else {
+                                alert("YOU NEED ALL THE COINS COLLECTED!!!");
+                            }
                         }
 
                     }, null, this);
