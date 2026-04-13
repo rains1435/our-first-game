@@ -206,14 +206,19 @@
 
                     // portal
                     teleport = this.physics.add.staticGroup();
-                    portal = teleport.create(900, 340, 'portal');
+                    portal = teleport.create(150, 450, 'portal');
                     portal.setSize(50, 80);
                     portal.setScale(0.15);
                     portal.refreshBody();
 
                     this.physics.add.overlap(player1, portal, function() {
-                        alert("You've beat the first level! Click 'Ok' to move on to the second level");
-                        this.scene.start('Level2');
+                        if (score >= coinValue * 10) {
+                            alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                            this.scene.start('Level2');
+                        } else {
+                            alert("YOU NEED ALL THE COINS COLLECTED!!!");
+                        }
+
                     }, null, this);
                 }
 
