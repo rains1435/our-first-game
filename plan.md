@@ -80,7 +80,7 @@ BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
     - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
 
 - ### 3) Levels + Functionality
-  - [x] Create different levels (**Rain**-> 4/1/26)
+  - [x] Create different levels; AT MAX 2 LEVELS WITH THEIR OWN MAP FOR MVP (**Rain**-> 4/1/26)
   - [x] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**-> 4/10/26)
   - [x] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Xin Yu/Rain**)
   - [x] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**-> 4/3/26)
