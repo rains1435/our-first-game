@@ -110,11 +110,11 @@
                             .refreshBody();
                     }
 
-                    // platforms (easy stepping stones left to right)
-                    ground(200, 450, 150, 20); // low platform near start
-                    ground(400, 370, 150, 20); // middle platform
-                    ground(600, 290, 150, 20); // higher platform
-                    ground(800, 370, 150, 20); // platform near end
+                    // platforms
+                    ground(200, 430, 400, 20);
+                    ground(400, 370, 150, 20);
+                    ground(600, 290, 150, 20);
+                    ground(800, 370, 150, 20);
 
                     // player
                     player1 = this.physics.add.sprite(50, 500, 'knight');
@@ -125,9 +125,9 @@
                     scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#000' });
                     livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
 
-                    // spike on floor between start and first platform
+                    // spike
                     spikes = this.physics.add.staticGroup();
-                    createSpike(this, 300, 540); // on the floor, gap between platforms
+                    createSpike(this, 300, 540);
 
                     // death system
                     this.physics.add.overlap(player1, spikes, function() {
@@ -159,7 +159,7 @@
                         }
                     }, null, this);
 
-                    // brick wall blocking the key (player must answer question)
+                    // brick wall
                     brick = this.physics.add.staticImage(370, 340, 'brickWall');
                     brick.setSize(30, 80);
                     brick.setScale(0.15);
@@ -177,12 +177,12 @@
                         }
                     }, null, this);
 
-                    // key (behind the brick wall)
+                    // key
                     key = this.physics.add.staticImage(500, 260, 'key');
                     key.setSize(16, 36);
                     key.setScale(0.15);
 
-                    // door (blocking path to portal)
+                    // door
                     door = this.physics.add.staticImage(700, 340, 'doorClosed');
                     door.setSize(45, 54);
                     door.setScale(0.6);
@@ -203,7 +203,7 @@
                         }
                     }, null, this);
 
-                    // portal (at the end after the door)
+                    // portal
                     teleport = this.physics.add.staticGroup();
                     portal = teleport.create(900, 340, 'portal');
                     portal.setSize(50, 80);
