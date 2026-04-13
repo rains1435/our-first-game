@@ -482,7 +482,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-330);
+                        player1.setVelocityY(-250);
                     }
                 }
             }
@@ -686,7 +686,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-330);
+                        player1.setVelocityY(-250);
                     }
                 }
             }
@@ -890,7 +890,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-330);
+                        player1.setVelocityY(-250);
                     }
                 }
             }
@@ -1063,7 +1063,7 @@
 
                     this.physics.add.overlap(player1, portal, function() {
                         if (score >= coinValue * 10) {
-                            alert("");
+                            alert("YOU'VE BEAT ALL 5 LEVELS!!! Click 'Ok' to proceed.");
                             userAnswered = false;
                             keyOn = false;
                             score = 0;
@@ -1094,7 +1094,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-330);
+                        player1.setVelocityY(-250);
                     }
                 }
             }
@@ -1109,7 +1109,8 @@
                 }
 
                 create() {
-                    var theEnd = this.add.text(16, 16, 'CONGR', { fontSize: '32px', fill: '#000' });
+                    var theEndOne = this.add.text(500, 400, 'CONGRATULATIONS FOR BEATING THE GAME', { fontSize: '60px', fill: '#000' });
+                    var theEndTwo = this.add.text(500, 400, 'THANK YOU SO MUCH FOR TRYING OUT MY GAME!!!', { fontSize: '60px', fill: '#000' });
                 }
 
                 update() {
