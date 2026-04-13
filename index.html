@@ -294,7 +294,164 @@
                 }
 
                 create() {
-                    
+                    // background
+                    let sky = this.add.image(500, 300, 'sky');
+                    sky.setDisplaySize(1000, 600);
+
+                    // platforms
+                    let platforms = this.physics.add.staticGroup();
+
+                    // floor
+                    let floor = platforms.create(500, 580, 'ground').refreshBody();
+                    floor.setDisplaySize(1000, 52);
+                    floor.setSize(1000, 52);
+                    floor.refreshBody();
+
+                    function ground(x, y, w, h) {
+                        return platforms.create(x, y, 'ground')
+                            .setDisplaySize(w, h)
+                            .setSize(w, h)
+                            .refreshBody();
+                    }
+
+                    // platforms
+                    ground(180, 480, 150, 20);
+                    ground(370, 400, 100, 20);
+                    ground(740, 310, 520, 20);
+                    ground(940, 230, 120, 20);
+
+
+                    // player
+                    player1 = this.physics.add.sprite(50, 500, 'knight');
+                    player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
+                    this.physics.add.collider(player1, platforms);
+
+                    // score + coins
+                    coins = this.physics.add.group({
+                    });
+                    function coinsSpawn(x, y, count, spacing){
+                        for(var i = 0; i < count; i++){
+                            coins.create(x + i*spacing, y, 'coins' );
+                        }
+                    }
+                    coinsSpawn(120, 460, 4, 40);
+
+                    coinsSpawn(605, 280, 6, 30);
+
+                    coins.children.iterate(function (child) {
+                        child.setScale(0.1);
+                    });
+
+
+
+                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+
+                    function collectCoin (player1, coins)
+                    {
+                        coins.disableBody(true, true);
+
+                        score += 10;
+                        scoreText.setText('Score: ' + score);
+                    }
+
+                    this.physics.add.collider(coins, platforms);
+                    this.physics.add.overlap(player1, coins, collectCoin, null, this);
+
+                    // lives
+                    livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
+
+                    // spike
+                    spikes = this.physics.add.staticGroup();
+                    createSpike(this, 560, 280);
+                    createSpike(this, 800, 280);
+
+                    // death system
+                    this.physics.add.overlap(player1, spikes, function() {
+                        if (dying === false) {
+                            dying = true;
+                            player1.disableBody(true, false);
+                            lives--;
+                            livesText.setText('Lives: ' + lives);
+                            score = 0;
+                            scoreText.setText('Score: 0');
+                            if (lives <= 0) {
+                                lives = 3;
+                                dying = false;
+                                userAnswered = false;
+                                keyOn = false;
+                                this.scene.start('Level1');
+                            } else {
+                                this.time.addEvent({
+                                    delay: 500,
+                                    callback: function() {
+                                        dying = false;
+                                        userAnswered = false;
+                                        keyOn = false;
+                                        this.scene.restart();
+                                    },
+                                    callbackScope: this
+                                });
+                            }
+                        }
+                    }, null, this);
+
+                    // brick wall
+                    brick = this.physics.add.staticImage(370, 352, 'brickWall');
+                    brick.setSize(30, 80);
+                    brick.setScale(0.15);
+
+                    this.physics.add.overlap(player1, brick, function() {
+                        if (userAnswered === false) {
+                            userAnswered = true;
+                            var answer = prompt("Answer to pass! What is 2 + 2?");
+                            if (answer === "4") {
+                                brick.destroy();
+                            } else {
+                                alert("Wrong! Try again.");
+                                userAnswered = false;
+                            }
+                        }
+                    }, null, this);
+
+                    // key
+                    key = this.physics.add.staticImage(410, 370, 'key');
+                    key.setSize(16, 36);
+                    key.setScale(0.15);
+
+                    // door
+                    door = this.physics.add.staticImage(900, 274, 'doorClosed');
+                    door.setSize(45, 54);
+                    door.setScale(0.6);
+                    barrier = this.physics.add.collider(player1, door);
+
+                    // pick up key
+                    this.physics.add.overlap(player1, key, function() {
+                        key.destroy();
+                        keyOn = true;
+                        this.physics.world.removeCollider(barrier);
+                    }, null, this);
+
+                    // unlock door
+                    this.physics.add.overlap(player1, door, function() {
+                        if (keyOn) {
+                            door.setTexture('doorOpen');
+                            keyOn = false;
+                        }
+                    }, null, this);
+
+                    // portal
+                    teleport = this.physics.add.staticGroup();
+                    portal = teleport.create(975, 272, 'portal');
+                    portal.setSize(50, 80);
+                    portal.setScale(0.15);
+                    portal.refreshBody();
+
+                    this.physics.add.overlap(player1, portal, function() {
+                        if (score >= coinValue * 10) {
+                            alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                            this.scene.start('Level2');
+                        }
+                    }, null, this);
                 }
 
                 update() {
