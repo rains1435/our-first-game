@@ -175,12 +175,14 @@
                             if (lives <= 0) {
                                 lives = 3;
                                 dying = false;
+                                userAnswered = false;
                                 this.scene.start('Level1');
                             } else {
                                 this.time.addEvent({
                                     delay: 500,
                                     callback: function() {
                                         dying = false;
+                                        userAnswered = false;
                                         this.scene.restart();
                                     },
                                     callbackScope: this
