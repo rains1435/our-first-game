@@ -115,7 +115,7 @@
                     // platforms
                     ground(180, 480, 150, 20);
                     ground(370, 400, 100, 20);
-                    ground(690, 310, 400, 20);
+                    ground(740, 310, 520, 20);
 
                     // player
                     player1 = this.physics.add.sprite(50, 500, 'knight');
@@ -192,7 +192,7 @@
                     }, null, this);
 
                     // brick wall
-                    brick = this.physics.add.staticImage(370, 350, 'brickWall');
+                    brick = this.physics.add.staticImage(370, 352, 'brickWall');
                     brick.setSize(30, 80);
                     brick.setScale(0.15);
 
@@ -215,7 +215,7 @@
                     key.setScale(0.15);
 
                     // door
-                    door = this.physics.add.staticImage(700, 340, 'doorClosed');
+                    door = this.physics.add.staticImage(900, 274, 'doorClosed');
                     door.setSize(45, 54);
                     door.setScale(0.6);
                     barrier = this.physics.add.collider(player1, door);
@@ -237,7 +237,7 @@
 
                     // portal
                     teleport = this.physics.add.staticGroup();
-                    portal = teleport.create(900, 200, 'portal');
+                    portal = teleport.create(975, 272, 'portal');
                     portal.setSize(50, 80);
                     portal.setScale(0.15);
                     portal.refreshBody();
@@ -885,7 +885,7 @@
                     default: 'arcade',
                     arcade: {
                         gravity: { y: 300 },
-                        debug: true
+                        debug: false
                     }
                 },
                 scene: [Level1, Level2, Level3, Level4, Level5, Ending]
