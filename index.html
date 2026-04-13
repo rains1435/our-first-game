@@ -909,21 +909,39 @@
                 }
 
                 create() {
-                    let sky = this.add.image(400, 300, 'sky');
-                    sky.setDisplaySize(1200, 600);
+                    // background
+                    let sky = this.add.image(500, 300, 'sky');
+                    sky.setDisplaySize(1000, 600);
 
                     // platforms
                     let platforms = this.physics.add.staticGroup();
 
+                    // floor
                     let floor = platforms.create(500, 580, 'ground').refreshBody();
                     floor.setDisplaySize(1000, 52);
-                    floor.setSize(1400, 1);
+                    floor.setSize(1000, 52);
+                    floor.refreshBody();
 
-                    player1 = this.physics.add.sprite(350, 400, 'knight');
+                    function ground(x, y, w, h) {
+                        return platforms.create(x, y, 'ground')
+                            .setDisplaySize(w, h)
+                            .setSize(w, h)
+                            .refreshBody();
+                    }
+
+                    // platforms
+                    ground(180, 480, 150, 20);
+                    ground(370, 400, 100, 20);
+                    ground(740, 310, 520, 20);
+                    ground(940, 230, 120, 20);
+
+
+                    // player
+                    player1 = this.physics.add.sprite(50, 500, 'knight');
                     player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
-                    // coins (collectable) / score system
+                    // score + coins
                     coins = this.physics.add.group({
                     });
                     function coinsSpawn(x, y, count, spacing){
@@ -931,16 +949,17 @@
                             coins.create(x + i*spacing, y, 'coins' );
                         }
                     }
-                    coinsSpawn(500, 300, 6, 50);
-                    // coinsSpawn(530, 360, 6, 50);
-                    // coinsSpawn(580, 130, 5, 50);
+                    coinsSpawn(120, 460, 4, 40);
+
+                    coinsSpawn(605, 280, 6, 30);
+
                     coins.children.iterate(function (child) {
                         child.setScale(0.1);
                     });
 
 
 
-                    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
 
                     function collectCoin (player1, coins)
                     {
@@ -953,63 +972,104 @@
                     this.physics.add.collider(coins, platforms);
                     this.physics.add.overlap(player1, coins, collectCoin, null, this);
 
-                    // death system
+                    // lives
+                    livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
+
+                    // spike
                     spikes = this.physics.add.staticGroup();
-                    createSpike(this,220,205);
-                    // // learned from https://docs.phaser.io/api-documentation/class/gameobjects-triangle
-                    // spikeCreate = this.add.triangle(220,205,0,40,20,0,40,40,0xff0000);
-                    // //hitboxes need to be created
-                    // var hbOne = spikes.create(220,190).setScale(0.2).refreshBody();
-                    // var hbTwo = spikes.create(210,222).setScale(0.2).refreshBody();
-                    // var hbThree = spikes.create(230,222).setScale(0.2).refreshBody();
-                    // //makes hitboxes invisible; learned from https://docs.phaser.io/phaser/concepts/gameobjects#:~:text=Removing%20a%20game%20object%E2%80%8B,may%20move%20freely%20between%20them.
-                    // hbOne.setVisible(false);
-                    // hbTwo.setVisible(false);
-                    // hbThree.setVisible(false);
+                    createSpike(this, 560, 280);
+                    createSpike(this, 800, 280);
+
+                    // death system
                     this.physics.add.overlap(player1, spikes, function() {
-                        player1.setPosition(350, 400);
-                        score = 0;
-                        scoreText.setText('Score: 0');
-                    }, null, this);
-
-                    // key system
-                    key = this.physics.add.staticImage(200,350,'key');
-                    key.setSize(16,36);
-                    key.setScale(0.15);
-                    door = this.physics.add.staticImage(400,200,'doorClosed');
-                    door.setSize(45,54);
-                    door.setScale(0.6);
-
-                    barrier = this.physics.add.collider(player1, door);
-
-                    this.physics.add.overlap(player1, key, function() {
-                        key.destroy()
-                        keyOn = true;
-                        // NECESSARY CHANGE B/C THE COLLIDER HAS TO BE REMOVED FIRST THEN THE OVERLAP BETWEEN THE PLAYER AND THE DOOR WOULD WORK
-                        this.physics.world.removeCollider(barrier);
-                    }, null, this);
-
-                    this.physics.add.overlap(player1, door, function(){
-                        if (keyOn){
-                            door.setTexture('doorOpen');
-                            keyOn = false;
-                            // this.physics.world.removeCollider(barrier); -> MOVED UP; EXPLANATION UP THERE
+                        if (dying === false) {
+                            dying = true;
+                            player1.disableBody(true, false);
+                            lives--;
+                            livesText.setText('Lives: ' + lives);
+                            score = 0;
+                            scoreText.setText('Score: 0');
+                            if (lives <= 0) {
+                                lives = 3;
+                                dying = false;
+                                userAnswered = false;
+                                keyOn = false;
+                                this.scene.start('Level1');
+                            } else {
+                                this.time.addEvent({
+                                    delay: 500,
+                                    callback: function() {
+                                        dying = false;
+                                        userAnswered = false;
+                                        keyOn = false;
+                                        this.scene.restart();
+                                    },
+                                    callbackScope: this
+                                });
+                            }
                         }
                     }, null, this);
 
-                    // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
-                     teleport = this.physics.add.staticGroup();
-                     portal = teleport.create(900,500,'portal');
-                     portal.setSize(50,50);
-                     portal.setScale(0.15);
-                     portal.refreshBody;
+                    // brick wall
+                    brick = this.physics.add.staticImage(370, 352, 'brickWall');
+                    brick.setSize(30, 80);
+                    brick.setScale(0.15);
 
-                     this.physics.add.overlap(player1, portal, function(){
-                        alert("YAY YOU BEAT THE GAME!!!");
-                        this.scene.start('Ending');
-                     }, null, this);
+                    this.physics.add.overlap(player1, brick, function() {
+                        if (userAnswered === false) {
+                            userAnswered = true;
+                            var answer = prompt("Answer to pass! What is 2 + 2?");
+                            if (answer === "4") {
+                                brick.destroy();
+                            } else {
+                                alert("Wrong! Try again.");
+                                userAnswered = false;
+                            }
+                        }
+                    }, null, this);
 
+                    // key
+                    key = this.physics.add.staticImage(410, 370, 'key');
+                    key.setSize(16, 36);
+                    key.setScale(0.15);
 
+                    // door
+                    door = this.physics.add.staticImage(900, 274, 'doorClosed');
+                    door.setSize(45, 54);
+                    door.setScale(0.6);
+                    barrier = this.physics.add.collider(player1, door);
+
+                    // pick up key
+                    this.physics.add.overlap(player1, key, function() {
+                        key.destroy();
+                        keyOn = true;
+                        this.physics.world.removeCollider(barrier);
+                    }, null, this);
+
+                    // unlock door
+                    this.physics.add.overlap(player1, door, function() {
+                        if (keyOn) {
+                            door.setTexture('doorOpen');
+                            keyOn = false;
+                        }
+                    }, null, this);
+
+                    // portal
+                    teleport = this.physics.add.staticGroup();
+                    portal = teleport.create(975, 272, 'portal');
+                    portal.setSize(50, 80);
+                    portal.setScale(0.15);
+                    portal.refreshBody();
+
+                    this.physics.add.overlap(player1, portal, function() {
+                        if (score >= coinValue * 10) {
+                            alert("CONGRATULATIONS, YOU'VE BEAT THE LAST LEVEL!!!");
+                            userAnswered = false;
+                            keyOn = false;
+                            score = 0;
+                            this.scene.start('Ending');
+                        }
+                    }, null, this);
                 }
 
                 update() {
