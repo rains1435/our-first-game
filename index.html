@@ -117,7 +117,7 @@
                     ground(800, 370, 150, 20); // platform near end
 
                     // player
-                    player1 = this.physics.add.sprite(100, 500, 'knight');
+                    player1 = this.physics.add.sprite(50, 500, 'knight');
                     player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
@@ -239,7 +239,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-330);
+                        player1.setVelocityY(-250);
                     }
                 }
             }
