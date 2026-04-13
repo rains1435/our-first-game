@@ -176,6 +176,7 @@
                                 lives = 3;
                                 dying = false;
                                 userAnswered = false;
+                                keyOn = false;
                                 this.scene.start('Level1');
                             } else {
                                 this.time.addEvent({
@@ -183,6 +184,7 @@
                                     callback: function() {
                                         dying = false;
                                         userAnswered = false;
+                                        keyOn = false;
                                         this.scene.restart();
                                     },
                                     callbackScope: this
