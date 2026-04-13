@@ -1063,7 +1063,7 @@
 
                     this.physics.add.overlap(player1, portal, function() {
                         if (score >= coinValue * 10) {
-                            alert("CONGRATULATIONS, YOU'VE BEAT THE LAST LEVEL!!!");
+                            alert("");
                             userAnswered = false;
                             keyOn = false;
                             score = 0;
@@ -1109,7 +1109,7 @@
                 }
 
                 create() {
-
+                    var theEnd = this.add.text(16, 16, 'CONGR', { fontSize: '32px', fill: '#000' });
                 }
 
                 update() {
