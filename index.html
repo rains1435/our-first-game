@@ -89,89 +89,55 @@
 
                 }
 
-                create ()
-                {
+                create() {
                     // background
-                    let sky = this.add.image(400, 300, 'sky');
-                    sky.setDisplaySize(1200, 600);
+                    let sky = this.add.image(500, 300, 'sky');
+                    sky.setDisplaySize(1000, 600);
 
                     // platforms
                     let platforms = this.physics.add.staticGroup();
 
+                    // floor
                     let floor = platforms.create(500, 580, 'ground').refreshBody();
                     floor.setDisplaySize(1000, 52);
-                    floor.setSize(1400, 1);
+                    floor.setSize(1000, 52);
+                    floor.refreshBody();
 
-                    function ground (x,y,w,h) {
+                    function ground(x, y, w, h) {
                         return platforms.create(x, y, 'ground')
-                            .setDisplaySize(w,h)
+                            .setDisplaySize(w, h)
+                            .setSize(w, h)
                             .refreshBody();
                     }
 
-                    ground(650,400,300,20);
-                    ground(150,250,200,20);
-                    ground(700,170,400,20);
+                    // platforms (easy stepping stones left to right)
+                    ground(200, 450, 150, 20); // low platform near start
+                    ground(400, 370, 150, 20); // middle platform
+                    ground(600, 290, 150, 20); // higher platform
+                    ground(800, 370, 150, 20); // platform near end
 
-
-                    // character (sprite)
-                    player1 = this.physics.add.sprite(350, 400, 'knight');
+                    // player
+                    player1 = this.physics.add.sprite(100, 500, 'knight');
                     player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
-                    // coins (collectable) / score system
-                    coins = this.physics.add.group({
-                    });
-                    function coinsSpawn(x, y, count, spacing){
-                        for(var i = 0; i < count; i++){
-                            coins.create(x + i*spacing, y, 'coins' );
-                        }
-                    }
-                    coinsSpawn(500, 300, 6, 50);
-                    // coinsSpawn(530, 360, 6, 50);
-                    // coinsSpawn(580, 130, 5, 50);
-                    coins.children.iterate(function (child) {
-                        child.setScale(0.1);
-                    });
+                    // score
+                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#000' });
+                    livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
 
-
-
-                    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
-                    function collectCoin (player1, coins)
-                    {
-                        coins.disableBody(true, true);
-
-                        score += 10;
-                        scoreText.setText('Score: ' + score);
-                    }
-
-                    this.physics.add.collider(coins, platforms);
-                    this.physics.add.overlap(player1, coins, collectCoin, null, this);
+                    // spike on floor between start and first platform
+                    spikes = this.physics.add.staticGroup();
+                    createSpike(this, 300, 540); // on the floor, gap between platforms
 
                     // death system
-                    spikes = this.physics.add.staticGroup();
-                    createSpike(this,200,450);
-                    // // learned from https://docs.phaser.io/api-documentation/class/gameobjects-triangle
-                    // spikeCreate = this.add.triangle(220,205,0,40,20,0,40,40,0xff0000);
-                    // //hitboxes need to be created
-                    // var hbOne = spikes.create(220,190).setScale(0.2).refreshBody();
-                    // var hbTwo = spikes.create(210,222).setScale(0.2).refreshBody();
-                    // var hbThree = spikes.create(230,222).setScale(0.2).refreshBody();
-                    // //makes hitboxes invisible; learned from https://docs.phaser.io/phaser/concepts/gameobjects#:~:text=Removing%20a%20game%20object%E2%80%8B,may%20move%20freely%20between%20them.
-                    // hbOne.setVisible(false);
-                    // hbTwo.setVisible(false);
-                    // hbThree.setVisible(false);
-
                     this.physics.add.overlap(player1, spikes, function() {
                         if (dying === false) {
                             dying = true;
                             player1.disableBody(true, false);
-
                             lives--;
                             livesText.setText('Lives: ' + lives);
                             score = 0;
                             scoreText.setText('Score: 0');
-
                             if (lives <= 0) {
                                 lives = 3;
                                 dying = false;
@@ -193,51 +159,15 @@
                         }
                     }, null, this);
 
-                    // lives system
-                    livesText = this.add.text(16, 50, 'lives: ' + lives, { fontSize: '32px', fill: '#000' });
-
-                    // key system
-                    key = this.physics.add.staticImage(200,350,'key');
-                    key.setSize(16,36);
-                    key.setScale(0.15);
-                    door = this.physics.add.staticImage(400,200,'doorClosed');
-                    door.setSize(45,54);
-                    door.setScale(0.6);
-
-                    barrier = this.physics.add.collider(player1, door);
-
-                    this.physics.add.overlap(player1, key, function() {
-                        key.destroy()
-                        keyOn = true;
-                        // NECESSARY CHANGE B/C THE COLLIDER HAS TO BE REMOVED FIRST THEN THE OVERLAP BETWEEN THE PLAYER AND THE DOOR WOULD WORK
-                        this.physics.world.removeCollider(barrier);
-                    }, null, this);
-
-                    this.physics.add.overlap(player1, door, function(){
-                        if (keyOn){
-                            door.setTexture('doorOpen');
-                            keyOn = false;
-                            // this.physics.world.removeCollider(barrier); -> MOVED UP; EXPLANATION UP THERE
-                        }
-                    }, null, this)
-                    // level teleportation; learned from https://docs.phaser.io/phaser/concepts/scenes#changing-scenes
-                     teleport = this.physics.add.staticGroup();
-                     portal = teleport.create(900,500,'portal');
-                     portal.setSize(50,50);
-                     portal.setScale(0.15);
-                     portal.refreshBody;
-                     this.physics.add.overlap(player1, portal, function(){
-                        alert("You've beat the first level! Click 'Ok' to move on to the second level");
-                        this.scene.start('Level2');
-                     }, null, this);
-                    brick = this.physics.add.staticImage(150, 300, 'brickWall');
-                    brick.setSize(30,80);
+                    // brick wall blocking the key (player must answer question)
+                    brick = this.physics.add.staticImage(370, 340, 'brickWall');
+                    brick.setSize(30, 80);
                     brick.setScale(0.15);
 
                     this.physics.add.overlap(player1, brick, function() {
                         if (userAnswered === false) {
                             userAnswered = true;
-                            var answer = prompt("Answer correctly to pass! What is 2 + 2?");
+                            var answer = prompt("Answer to pass! What is 2 + 2?");
                             if (answer === "4") {
                                 brick.destroy();
                             } else {
@@ -245,6 +175,44 @@
                                 userAnswered = false;
                             }
                         }
+                    }, null, this);
+
+                    // key (behind the brick wall)
+                    key = this.physics.add.staticImage(500, 260, 'key');
+                    key.setSize(16, 36);
+                    key.setScale(0.15);
+
+                    // door (blocking path to portal)
+                    door = this.physics.add.staticImage(700, 340, 'doorClosed');
+                    door.setSize(45, 54);
+                    door.setScale(0.6);
+                    barrier = this.physics.add.collider(player1, door);
+
+                    // pick up key
+                    this.physics.add.overlap(player1, key, function() {
+                        key.destroy();
+                        keyOn = true;
+                        this.physics.world.removeCollider(barrier);
+                    }, null, this);
+
+                    // unlock door
+                    this.physics.add.overlap(player1, door, function() {
+                        if (keyOn) {
+                            door.setTexture('doorOpen');
+                            keyOn = false;
+                        }
+                    }, null, this);
+
+                    // portal (at the end after the door)
+                    teleport = this.physics.add.staticGroup();
+                    portal = teleport.create(900, 340, 'portal');
+                    portal.setSize(50, 80);
+                    portal.setScale(0.15);
+                    portal.refreshBody();
+
+                    this.physics.add.overlap(player1, portal, function() {
+                        alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                        this.scene.start('Level2');
                     }, null, this);
                 }
 
