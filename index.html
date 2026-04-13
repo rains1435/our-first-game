@@ -123,8 +123,37 @@
                     player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
-                    // score
-                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#000' });
+                    // score + coins
+                    coins = this.physics.add.group({
+                    });
+                    function coinsSpawn(x, y, count, spacing){
+                        for(var i = 0; i < count; i++){
+                            coins.create(x + i*spacing, y, 'coins' );
+                        }
+                    }
+                    coinsSpawn(500, 300, 6, 50);
+                    // coinsSpawn(530, 360, 6, 50);
+                    // coinsSpawn(580, 130, 5, 50);
+                    coins.children.iterate(function (child) {
+                        child.setScale(0.1);
+                    });
+
+
+
+                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+
+                    function collectCoin (player1, coins)
+                    {
+                        coins.disableBody(true, true);
+
+                        score += 10;
+                        scoreText.setText('Score: ' + score);
+                    }
+
+                    this.physics.add.collider(coins, platforms);
+                    this.physics.add.overlap(player1, coins, collectCoin, null, this);
+
+                    // lives
                     livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
 
                     // spike
