@@ -247,6 +247,9 @@
                     this.physics.add.overlap(player1, portal, function() {
                         if (score >= coinValue * 10) {
                             alert("You've beat the first level! Click 'Ok' to move on to the second level");
+                            userAnswered = false;
+                            keyOn = false;
+                            score = 0;
                             this.scene.start('Level2');
                         }
                     }, null, this);
