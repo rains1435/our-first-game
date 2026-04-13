@@ -360,7 +360,6 @@
                     coinsSpawn(500, 200, 2, 80);
                     coinsSpawnUp(680, 200, 2, 100);
                     coinsSpawn(780, 150, 1, 0);
-
                     coins.children.iterate(function (child) {
                         child.setScale(0.1);
                     });
@@ -440,11 +439,13 @@
                     }, null, this);
 
                     // key
+
                     key = this.physics.add.staticImage(40, 372, 'key');
                     key.setSize(16, 36);
                     key.setScale(0.15);
 
                     // door
+
                     door = this.physics.add.staticImage(900, 114, 'doorClosed');
                     door.setSize(45, 54);
                     door.setScale(0.6);
