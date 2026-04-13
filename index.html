@@ -132,7 +132,7 @@
                     }
                     coinsSpawn(120, 460, 4, 40);
 
-                    coinsSpawn(590, 280, 6, 30);
+                    coinsSpawn(605, 280, 6, 30);
 
                     coins.children.iterate(function (child) {
                         child.setScale(0.1);
@@ -159,6 +159,7 @@
                     // spike
                     spikes = this.physics.add.staticGroup();
                     createSpike(this, 560, 280);
+                    createSpike(this, 800, 280);
 
                     // death system
                     this.physics.add.overlap(player1, spikes, function() {
