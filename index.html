@@ -166,21 +166,18 @@
                             dying = true;
                             lives--;
                             livesText.setText('Lives: ' + lives);
+                            score = 0;
+                            scoreText.setText('Score: 0');
 
                             if (lives <= 0) {
                                 lives = 3;
-                                score = 0;
-                                this.delayedCall(100, function(){
-                                    dying = false;
-                                    this.scene.start('Level1');
-                                }, [], this);
-
+                                dying = false;
+                                this.scene.start('Level1');
                             } else {
-                                score = 0;
-                                this.time.delayedCall(100, function(){
-                                    dying = false;
-                                    this.scene.restart();
-                                }, [], this);
+                                // just move player back to start, no restart
+                                player1.setPosition(350, 400);
+                                player1.setVelocity(0, 0);
+                                dying = false;
                             }
                         }
                     }, null, this);
