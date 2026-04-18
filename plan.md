@@ -73,26 +73,25 @@ N/A
 
 - ### 2) User Interactability
 BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
-  - [X] Implement Arrows Key for the sprite/Both the arrow and the WAD (not including S (**Xin Yu/Rain**-> 4/10/26)
+  - [X] Implement Arrows Key for the sprite/Both the arrow and the WAD (not including S (**Xin Yu/Rain** -> 4/10/26)
   - [x] Make it that sprites can collect collectables (**Xin Yu/Rain**)
-  - [x] Add a concept of death of the sprites when interacting with something (i.e., traps) (**Rain**-> 4/3/26)
-    - [x] Add some entity/thing that can kill the sprite + physics/collision/texture (**Rain**-> 4/3/26)
-    - **NOTE THAT THIS CONCEPT OF DEATH WILL BE REFINED FURTHER DOWN THE MVP**
+  - [x] Add a concept of death of the sprites when interacting with something (i.e., traps) (**Rain** -> 4/3/26)
+    - [x] Add some entity/thing that can kill the sprite + physics/collision/texture (**Rain** -> 4/3/26)
 
 - ### 3) Levels + Functionality
-  - [x] Create different levels; AT MAX 2 LEVELS WITH THEIR OWN MAP FOR MVP (**Rain**-> 4/1/26)
-  - [x] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu**-> 4/10/26)
+  - [x] Create different levels; AT MAX 2 LEVELS WITH THEIR OWN MAP FOR MVP (**Rain** -> 4/1/26)
+  - [x] Create a "key" system that unlocks new levels; sprites can pick it up like collectables (**Xin Yu** -> 4/10/26)
   - [x] Make it that the key the sprite is holding disables a level barrier near the end of each level (unlocks something) (**Xin Yu/Rain**)
-  - [x] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain**-> 4/3/26)
-  - [] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu**)
+  - [x] Consider transferring the user onto the next level when the sprite interacts with the "winning line" (**Rain** -> 4/3/26)
+  - [x] Users have to answer correctly to the prompt(s) in order to obtain the key (**Xin Yu** -> 4/12/26)
 
 - ### 4) Restarting + Concept of Death
-  - [x] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain**-> 4/3/26)
-  - [x] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain**-> 4/3/26)
+  - [x] Make it that a kill-item (static) instantly kills the sprite when colliding (**Rain** -> 4/3/26)
+  - [x] Develop a restart system when the sprite is killed by a kill-item; restart back to the same level (**Rain** -> 4/3/26)
 
 - ### 5) Map Development + Design
-  - [] Create obstacle courses with kill-items to make it harder; as levels progress, maps get more difficult (**Xin Yu; Rain will assist**)
-  - [] Find places on the level to put the "winning line", spawn area, key location + the riddle to solve to get to it (**Xin Yu; Rain will assist**)
+  - [x] Create obstacle courses with kill-items to make it harder; as levels progress, maps get more difficult (**Xin Yu; Rain will assist** -> 4/12/26)
+  - [x] Find places on the level to put the "winning line", spawn area, key location + the riddle to solve to get to it (**Xin Yu; Rain will assist** -> 4/12/26)
 
 #### Beyond MVP
 
