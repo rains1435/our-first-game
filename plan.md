@@ -95,8 +95,25 @@ BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
 
 #### Beyond MVP
 
-- []
-  - []
+### 1) Create MORE LEVELS (From 2 to 5)
+  - [] Create Level 3 (Xin Yu)
+  - [] Create Level 4 (Xin Yu or Rain)
+  - [] Create Level 5 (Rain)
+
+### 2) Fixes
+  - [] Increase height of brick wall to prevent overjumping/skipping brick riddle prompt OR add a invisible header barrier OR decrease jump power (Rain)
+  - DBT...
+
+### 3) Riddles (XIN YU ONLY)
+  - [] DIFFERENT RIDDLES FOR ALL 5 LEVELS
+    - [] RIDDLES SHOULD BE PROGRESSIVE (EASY TO HARD BASED ON LEVEL)
+
+### 4) Starting Menu Screen (RAIN ONLY)
+  - [] Clickable button to continue to the first level
+  - [] Design
+
+### 5) Animations (OPTIONAL; HIGH END)
+  - [] Have accurate walking animations + jumnp animation -> needs spritesheet (Rain)
 
 
 <!-- EXAMPLE
