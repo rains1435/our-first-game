@@ -460,7 +460,7 @@
 
                     // unlock door
                     this.physics.add.overlap(player1, door, function() {
-                        if (keyOn) {
+                        if (keyOn == true) {
                             door.setTexture('doorOpen');
                             keyOn = false;
                         }
