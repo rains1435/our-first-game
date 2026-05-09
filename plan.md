@@ -101,7 +101,7 @@ BELOW UNTIL NEXT TEXT, ALL SHOULD BE DONE IN `function update`
   - [] Create Level 5 (Rain)
 
 ### 2) Fixes
-  - [] Increase height of brick wall to prevent overjumping/skipping brick riddle prompt OR add a invisible header barrier OR decrease jump power (Rain)
+  - [x] Increase height of brick wall to prevent overjumping/skipping brick riddle prompt OR add a invisible header barrier OR decrease jump power (Rain)
   - DBT...
 
 ### 3) Riddles (XIN YU ONLY)
