@@ -115,6 +115,7 @@
                     // platforms
                     ground(180, 480, 150, 20);
                     ground(370, 400, 100, 20);
+                    ground(370, 285, 100, 50);
                     ground(740, 310, 520, 20);
                     ground(940, 230, 120, 20);
 
@@ -265,11 +266,13 @@
                     });
                     if (wasdKey.left.isDown)
                     {
-                        player1.setVelocityX(-160);
+                        player1.setVelocityX(-140);
+                        player1.setFlipX(true);
                     }
                     else if (wasdKey.right.isDown)
                     {
-                        player1.setVelocityX(160);
+                        player1.setVelocityX(140);
+                        player1.setFlipX(false);
                     }
                     else
                     {
@@ -278,7 +281,7 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-250);
+                        player1.setVelocityY(-240);
                     }
                 }
             }
@@ -475,11 +478,11 @@
 
                     this.physics.add.overlap(player1, portal, function() {
                         if (score >= coinValue * 10) {
-                            alert("YOU BEAT THE FINAL LEVEL!!!");
+                            alert("You've beat the second level! Click 'Ok' to move on to the third level");
                             userAnswered = false;
                             keyOn = false;
                             score = 0;
-                            this.scene.start('Ending');
+                            this.scene.start('Level3');
                         }
                     }, null, this);
                 }
@@ -494,11 +497,13 @@
                     });
                     if (wasdKey.left.isDown)
                     {
-                        player1.setVelocityX(-160);
+                        player1.setVelocityX(-140);
+                        player1.setFlipX(true);
                     }
                     else if (wasdKey.right.isDown)
                     {
-                        player1.setVelocityX(160);
+                        player1.setVelocityX(140);
+                        player1.setFlipX(false);
                     }
                     else
                     {
@@ -507,7 +512,251 @@
 
                     if (wasdKey.up.isDown && player1.body.touching.down)
                     {
-                        player1.setVelocityY(-230);
+                        player1.setVelocityY(-240);
+                    }
+                }
+            }
+
+            // beyond refactored spike multiplier machine
+            function multipleSpike(scene, startX, y, count, spacing) {
+                for (var i = 0; i < count; i++) {
+                    createSpike(scene, startX + i * spacing, y);
+                }
+            }
+
+            class Level3 extends Phaser.Scene {
+                constructor() {
+                    super('Level3');
+                }
+
+                preload ()
+                {
+                    this.load.image('hell', 'assets/hell.png'); //for sky
+                    this.load.image('ground', 'assets/magma.png'); //for ground
+                    this.load.image('coins', 'assets/coins.jpg'); //for coins
+                    this.load.image('knight', 'assets/knight.jpg'); //for sprite1
+                    this.load.image('portal', 'assets/portal.jpg'); //for portal that will teleport/transport the player into the next layer
+                    this.load.image('key', 'assets/key.png'); //for key that will enable access and have to answer question
+                    this.load.image('doorClosed', 'assets/doorC.png'); //door locked
+                    this.load.image('doorOpen', 'assets/doorO.png'); //door opened
+                    this.load.image('brickWall', 'assets/brick.png'); // brick wall to interact with
+
+                }
+
+                create() {
+                    // background
+                    let sky = this.add.image(500, 300, 'hell');
+                    sky.setDisplaySize(1000, 600);
+
+                    // platforms
+                    let platforms = this.physics.add.staticGroup();
+
+                    // floor
+                    let floor = platforms.create(25, 580, 'ground').refreshBody();
+                    floor.setDisplaySize(50, 50);
+                    floor.setSize(50, 50);
+                    floor.refreshBody();
+
+                    function ground(x, y, w, h) {
+                        return platforms.create(x, y, 'ground')
+                            .setDisplaySize(w, h)
+                            .setSize(w, h)
+                            .refreshBody();
+                    }
+
+                    // platforms
+                    ground(975,540,50,20);
+                    ground(990,485,20,10);
+                    ground(940,440,20,10);
+                    ground(990,395,20,10);
+                    ground(940,365,20,10);
+                    ground(440,319,700,25);
+                    ground(25,410,50,10);
+                    ground(10,360,20,10);
+                    ground(10,280,20,10);
+                    ground(125,228,150,10);
+                    ground(925,195,150,10);
+                    ground(830,140,20,10);
+                    ground(390,132,780,30);
+                    ground(60,58,120,10);
+                    // walls
+                    ground(925,403,10,85);
+                    ground(195,270,10,75);
+
+
+
+                    // player
+                    player1 = this.physics.add.sprite(25,530, 'knight');
+                    player1.setScale(0.04).setBounce(0.2).setCollideWorldBounds(true);
+                    this.physics.add.collider(player1, platforms);
+
+                    // score + coins
+                    coins = this.physics.add.staticGroup();
+                    function coinsSpawn(x, y, count, spacing){
+                        for(var i = 0; i < count; i++){
+                            let coin = coins.create(x + i*spacing, y, 'coins' );
+                            coin.setScale(0.1);
+                            coin.refreshBody();
+                        }
+                    }
+                    function coinsSpawnUp(x, y, count, spacing){
+                        for(var i = 0; i < count; i++){
+                            coins.create(x, y + i*spacing, 'coins' );
+                        }
+                    }
+                    // coins
+                    coinsSpawn(95,575,9,100);
+                    coinsSpawn(140,425,8,100);
+                    coinsSpawn(280,240,6,100);
+                    coinsSpawn(120,280,2,50);
+                    coinsSpawn(150,105,5,150)
+
+
+                    scoreText = this.add.text(16, 2, 'Score: 0', { fontSize: '32px', fill: '#fff' });
+
+                    function collectCoin (player1, coins)
+                    {
+                        coins.disableBody(true, true);
+
+                        score += 10;
+                        scoreText.setText('Score: ' + score);
+                    }
+
+                    this.physics.add.overlap(player1, coins, collectCoin, null, this);
+
+                    // lives
+                    livesText = this.add.text(16, 30, 'Lives: ' + lives, { fontSize: '24px', fill: '#fff' });
+
+                    // spike
+                    spikes = this.physics.add.staticGroup();
+                    multipleSpike(this,70,580,19,50);
+                    multipleSpike(this,145,540,8,100);
+                    multipleSpike(this,90,415,8,100);
+                    multipleSpike(this,230,220,6,100);
+                    multipleSpike(this,220,285,12,50);
+                    multipleSpike(this,220,96,2,20);
+                    multipleSpike(this,370,96,2,20);
+                    multipleSpike(this,520,96,2,20);
+                    multipleSpike(this,670,96,2,20);
+
+                    // death system
+                    this.physics.add.overlap(player1, spikes, function() {
+                        if (dying === false) {
+                            dying = true;
+                            player1.disableBody(true, false);
+                            lives--;
+                            livesText.setText('Lives: ' + lives);
+                            score = 0;
+                            scoreText.setText('Score: 0');
+                            if (lives <= 0) {
+                                lives = 3;
+                                dying = false;
+                                userAnswered = false;
+                                keyOn = false;
+                                this.scene.start('Level1');
+                            } else {
+                                this.time.addEvent({
+                                    delay: 500,
+                                    callback: function() {
+                                        dying = false;
+                                        userAnswered = false;
+                                        keyOn = false;
+                                        this.scene.restart();
+                                    },
+                                    callbackScope: this
+                                });
+                            }
+                        }
+                    }, null, this);
+
+                    // brick wall
+                    brick = this.physics.add.staticImage(120, 185, 'brickWall');
+                    brick.setSize(30, 80);
+                    brick.setScale(0.15);
+
+                    this.physics.add.overlap(player1, brick, function() {
+                        if (userAnswered === false) {
+                            userAnswered = true;
+                            var answer = prompt("Answer to pass! What is 2 + 2?");
+                            if (answer === "4") {
+                                brick.destroy();
+                            } else {
+                                alert("Wrong! Try again.");
+                                userAnswered = false;
+                            }
+                        }
+                    }, null, this);
+
+                    // key
+                    key = this.physics.add.staticImage(160, 185, 'key');
+                    key.setSize(16, 36);
+                    key.setScale(0.15);
+
+                    // door
+                    door = this.physics.add.staticImage(85, 90, 'doorClosed');
+                    door.setSize(45, 54);
+                    door.setScale(0.6);
+                    barrier = this.physics.add.collider(player1, door);
+
+                    // pick up key
+                    this.physics.add.overlap(player1, key, function() {
+                        key.destroy();
+                        keyOn = true;
+                        this.physics.world.removeCollider(barrier);
+                    }, null, this);
+
+                    // unlock door
+                    this.physics.add.overlap(player1, door, function() {
+                        if (keyOn) {
+                            door.setTexture('doorOpen');
+                            keyOn = false;
+                        }
+                    }, null, this);
+
+                    // portal
+                    teleport = this.physics.add.staticGroup();
+                    portal = teleport.create(25, 90, 'portal');
+                    portal.setSize(50, 80);
+                    portal.setScale(0.15);
+                    portal.refreshBody();
+
+                    this.physics.add.overlap(player1, portal, function() {
+                        if (score >= coinValue * 30) {
+                            alert("You've ESCAPED!");
+                            userAnswered = false;
+                            keyOn = false;
+                            score = 0;
+                            this.scene.start('Ending');
+                        }
+                    }, null, this);
+                }
+
+                update ()
+                {
+                    wasdKey = this.input.keyboard.addKeys({
+                        up: 'W',
+                        down: 'S',
+                        left: 'A',
+                        right: 'D'
+                    });
+                    if (wasdKey.left.isDown)
+                    {
+                        player1.setVelocityX(-100);
+                        player1.setFlipX(true);
+                    }
+                    else if (wasdKey.right.isDown)
+                    {
+                        player1.setVelocityX(100);
+                        player1.setFlipX(false);
+                    }
+                    else
+                    {
+                        player1.setVelocityX(0);
+                    }
+
+                    if (wasdKey.up.isDown && player1.body.touching.down)
+                    {
+                        player1.setVelocityY(-180);
                     }
                 }
             }
@@ -546,7 +795,7 @@
                         debug: true
                     }
                 },
-                scene: [Level1, Level2, Ending]
+                scene: [Level1, Level2, Level3, Ending]
             };
 
             const game = new Phaser.Game(config);
