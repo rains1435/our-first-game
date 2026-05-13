@@ -677,8 +677,8 @@
                     this.physics.add.overlap(player1, brick, function() {
                         if (userAnswered === false) {
                             userAnswered = true;
-                            var answer = prompt("Answer to pass! What is 2 + 2?");
-                            if (answer === "4") {
+                            var answer = prompt("Answer to pass! What is the sum of 10+5?");
+                            if (answer === "15") {
                                 brick.destroy();
                             } else {
                                 alert("Wrong! Try again.");
