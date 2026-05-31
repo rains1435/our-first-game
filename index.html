@@ -72,6 +72,46 @@
                 hbThree.setVisible(false);
             }
 
+            class Starting extends Phaser.Scene {
+                constructor() {
+                    super('Starting');
+                }
+
+                preload()
+                {
+                    this.load.image('castle', 'assets/castle.png'); // background
+                    this.load.image('cloud', 'assets/cloud.png'); // cloud
+                }
+
+                create()
+                {
+                    let bg = this.add.image(500, 300, 'castle');
+                    bg.setDisplaySize(1000,600);
+
+                    let cloud = this.add.image(500, 150, 'cloud');
+                    cloud.setDisplaySize(750,300);
+
+                    this.add.text(275,115, "THE KNIGHT AND HIS JOURNEY", {
+                        fontSize: '35px',
+                        fontStyle: 'bold',
+                        color: '#ffffff'
+                    });
+                    const startButton = this.add.text(435,450, "START", {
+                        fontSize: '28px',
+                        fontStyle: 'bold',
+                        backgroundColor: '#D2042D',
+                        color: '#000',
+                        padding: {
+                            x: 20,
+                            y: 10
+                        }
+                    });
+                    startButton.setInteractive({ useHandCursor: true });
+                    startButton.on("pointerdown", function () {
+                        this.scene.start("Level1");
+                    }, this);
+                }
+            }
             class Level1 extends Phaser.Scene {
                 constructor() {
                     super('Level1');
@@ -115,14 +155,14 @@
                     // platforms
                     ground(180, 480, 150, 20);
                     ground(370, 400, 100, 20);
-                    ground(370, 285, 100, 50);
+                    ground(370, 289, 100, 50);
                     ground(740, 310, 520, 20);
                     ground(940, 230, 120, 20);
 
 
                     // player
                     player1 = this.physics.add.sprite(50, 500, 'knight');
-                    player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
+                    player1.setScale(0.05).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
                     // score + coins
@@ -292,8 +332,8 @@
                 }
 
                 preload() {
-                    this.load.image('sky', 'assets/sky.jpg');
-                    this.load.image('ground', 'assets/ground.jpg');
+                    this.load.image('dark', 'assets/dark.png');
+                    this.load.image('moss', 'assets/mossy.png');
                     this.load.image('coins', 'assets/coins.jpg');
                     this.load.image('knight', 'assets/knight.jpg');
                     this.load.image('brickWall', 'assets/brick.png');
@@ -301,20 +341,20 @@
 
                 create() {
                     // background
-                    let sky = this.add.image(500, 300, 'sky');
-                    sky.setDisplaySize(1000, 600);
+                    let dark = this.add.image(500, 300, 'dark');
+                    dark.setDisplaySize(1000, 600);
 
                     // platforms
                     let platforms = this.physics.add.staticGroup();
 
                     // floor
-                    let floor = platforms.create(500, 580, 'ground').refreshBody();
+                    let floor = platforms.create(500, 580, 'moss').refreshBody();
                     floor.setDisplaySize(1000, 52);
                     floor.setSize(1000, 52);
                     floor.refreshBody();
 
                     function ground(x, y, w, h) {
-                        return platforms.create(x, y, 'ground')
+                        return platforms.create(x, y, 'moss')
                             .setDisplaySize(w, h)
                             .setSize(w, h)
                             .refreshBody();
@@ -341,7 +381,7 @@
 
                     // player
                     player1 = this.physics.add.sprite(50, 500, 'knight');
-                    player1.setScale(0.05).setBounce(0.2).setCollideWorldBounds(true);
+                    player1.setScale(0.05).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
                     // score + coins
@@ -369,7 +409,7 @@
 
 
 
-                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+                    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#ffffff' });
 
                     function collectCoin (player1, coins)
                     {
@@ -383,7 +423,7 @@
                     this.physics.add.overlap(player1, coins, collectCoin, null, this);
 
                     // lives
-                    livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#000' });
+                    livesText = this.add.text(16, 46, 'Lives: ' + lives, { fontSize: '24px', fill: '#ffffff' });
 
                     // spike
                     spikes = this.physics.add.staticGroup();
@@ -532,7 +572,7 @@
                 preload ()
                 {
                     this.load.image('hell', 'assets/hell.png'); //for sky
-                    this.load.image('ground', 'assets/magma.png'); //for ground
+                    this.load.image('magma', 'assets/magma.png'); //for ground
                     this.load.image('coins', 'assets/coins.jpg'); //for coins
                     this.load.image('knight', 'assets/knight.jpg'); //for sprite1
                     this.load.image('portal', 'assets/portal.jpg'); //for portal that will teleport/transport the player into the next layer
@@ -552,13 +592,13 @@
                     let platforms = this.physics.add.staticGroup();
 
                     // floor
-                    let floor = platforms.create(25, 580, 'ground').refreshBody();
+                    let floor = platforms.create(25, 580, 'magma').refreshBody();
                     floor.setDisplaySize(50, 50);
                     floor.setSize(50, 50);
                     floor.refreshBody();
 
                     function ground(x, y, w, h) {
-                        return platforms.create(x, y, 'ground')
+                        return platforms.create(x, y, 'magma')
                             .setDisplaySize(w, h)
                             .setSize(w, h)
                             .refreshBody();
@@ -587,7 +627,7 @@
 
                     // player
                     player1 = this.physics.add.sprite(25,530, 'knight');
-                    player1.setScale(0.04).setBounce(0.2).setCollideWorldBounds(true);
+                    player1.setScale(0.04).setCollideWorldBounds(true);
                     this.physics.add.collider(player1, platforms);
 
                     // score + coins
@@ -766,17 +806,37 @@
                     super('Ending');
                 }
 
-                preload() {
+                preload ()
+                {
+                    this.load.image('heaven', 'assets/heaven.png');
 
                 }
 
-                create() {
-                    var theEndOne = this.add.text(100, 200, "CONGRATULATIONS FOR BEATING THE GAME", { fontSize: '35px', fill: '#FFFFFF' });
-                    var theEndTwo = this.add.text(100, 300, "THIS IS JUST THE MVP GAME WHICH MEANS THERE'S MORE TO COME", { fontSize: '25px', fill: '#FFFFFF' });
-                }
+                create ()
+                {
+                    let heaven = this.add.image(500, 300, 'heaven');
+                    heaven.setDisplaySize(1000,600);
 
-                update() {
+                    this.add.text(150,115, "THE KNIGHT HAS COMPLETED HIS JOURNEY", {
+                        fontSize: '35px',
+                        fontStyle: 'bold',
+                        color: '#000'
+                    });
 
+                    const restartButton = this.add.text(425,450, "RESTART", {
+                        fontSize: '26px',
+                        fontStyle: 'bold',
+                        backgroundColor: '#305CDE',
+                        color: '#ffffff',
+                        padding: {
+                            x: 20,
+                            y: 10
+                        }
+                    });
+                    restartButton.setInteractive({ useHandCursor: true });
+                    startButton.on("pointerdown", function () {
+                        this.scene.start("Starting");
+                    }, this);
                 }
             }
 
@@ -795,7 +855,7 @@
                         debug: false
                     }
                 },
-                scene: [Level1, Level2, Level3, Ending]
+                scene: [Starting, Level1, Level2, Level3, Ending]
             };
 
             const game = new Phaser.Game(config);
